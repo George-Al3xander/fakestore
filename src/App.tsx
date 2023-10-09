@@ -5,6 +5,9 @@ import Product from './components/products/Product'
 import useFetch from './hooks/useFetch'
 import Products from './components/products/Products'
 import Footer from './components/Footer'
+import { Route, Routes } from 'react-router-dom'
+import ProductsPage from './components/products/ProductsPage'
+import SingleProductPage from './components/products/SingleProductPage'
 
 
 function App() {
@@ -13,8 +16,13 @@ function App() {
   return (
     <div>
       <Header />
-     <Nav/>    
-     {products ? <Products products={products}/>  : null}
+      <Nav/>    
+      <Routes>
+        <Route path='/shop' element={<h1>Shop</h1>}/>
+        <Route path='/products/:id' element={<SingleProductPage />}/>
+        <Route path='/products/category/:id' element={<ProductsPage />}/>
+
+      </Routes>
       <Footer />
     </div>
   )

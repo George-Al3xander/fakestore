@@ -18,7 +18,7 @@ export default {
         "default": "'Nunito Sans', sans-serif"
       },
       width: {
-        "responsive": "min(90%,70rem)"
+        "responsive": "min(90%,90rem)"
       }
     },
   },
