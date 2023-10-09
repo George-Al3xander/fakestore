@@ -19,7 +19,7 @@ function App() {
       <Nav/>    
       <Routes>
         <Route path='/shop' element={<h1>Shop</h1>}/>
-        <Route path='/products/:id' element={<SingleProductPage />}/>
+        <Route path='/products/:productId' element={<SingleProductPage />}/>
         <Route path='/products/category/:id' element={<ProductsPage />}/>
 
       </Routes>

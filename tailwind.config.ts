@@ -15,7 +15,7 @@ export default {
         
       },
       fontFamily: {
-        "default": "'Nunito Sans', sans-serif"
+        "default": "'Lexend', sans-serif"
       },
       width: {
         "responsive": "min(90%,90rem)"
