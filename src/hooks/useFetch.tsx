@@ -6,7 +6,7 @@ import { typeProduct } from "../types/types";
 const useFetch = (apiLink: string) => {
 
 
-    const [data, setData] = useState<any>();
+    const [data, setData] = useState<any>(null);
 
     const getData = () => {
         fetch(`${apiLink}`)

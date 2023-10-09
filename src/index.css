@@ -35,3 +35,8 @@ header input {
     transform: scaleX(1);
     transform-origin: bottom left;
   }
+ 
+  
+  footer {
+    background: linear-gradient(#222357,  #1A1E26);
+  }
