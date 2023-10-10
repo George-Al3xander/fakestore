@@ -1,5 +1,4 @@
 import {NavLink} from "react-router-dom"
-import useFetch from "../../hooks/useFetch"
 import {useQuery} from "@tanstack/react-query"
 import {useRef} from "react"
 import {AiOutlineClose} from "react-icons/ai"
@@ -21,12 +20,13 @@ const MobileNav = ({closeMenu} : {closeMenu: any}) => {
         setTimeout(() => {
             closeMenu();
         },300)
+        
     }
 
     if(isLoading) {
-        return<div 
+        return<div onClick={hideMenu}
             className='bg-ts fixed w-[100%] h-[100vh] z-50 '>
-                <nav className="flex md:hidden flex-col bg-accent h-[100%] p-4 w-[80%] gap-4 header-nav">
+                <nav onClick={(e) => e.stopPropagation()} className="slide flex md:hidden flex-col bg-accent h-[100%] p-4 w-[80%] gap-4 header-nav">
                     <button><AiOutlineClose onClick={closeMenu} size={30}/></button>                    
                     Loading...
                 </nav>
@@ -34,9 +34,9 @@ const MobileNav = ({closeMenu} : {closeMenu: any}) => {
     }
 
     if(isError) {
-        return<div 
+        return<div onClick={hideMenu}
             className='bg-ts fixed w-[100%] h-[100vh] z-50 '>
-                <nav className="flex md:hidden flex-col bg-accent h-[100%] p-4 w-[80%] gap-4 header-nav">
+                <nav onClick={(e) => e.stopPropagation()} className="slide flex md:hidden flex-col bg-accent h-[100%] p-4 w-[80%] gap-4 header-nav">
                     <button><AiOutlineClose onClick={closeMenu} size={30}/></button>                    
                     Couldn't fetch categories
                 </nav>
@@ -45,9 +45,9 @@ const MobileNav = ({closeMenu} : {closeMenu: any}) => {
     
 
 
-    return(<div 
+    return(<div onClick={hideMenu}
     className='bg-ts fixed w-[100%] md:hidden h-[100vh] z-50'>
-        <nav ref={navRef}   className="slide  flex  mobile-nav flex-col bg-accent h-[100%] p-4 w-[80%] gap-4">
+        <nav onClick={(e) => e.stopPropagation()} ref={navRef}   className="slide  flex  mobile-nav flex-col bg-accent h-[100%] p-4 w-[80%] gap-4">
             <button><AiOutlineClose onClick={hideMenu} size={30}/></button>
             <NavLink onClick={closeMenu} className={" capitalize opacity-70 hover:opacity-100"} to={"/"}>Home</NavLink>
             <NavLink  onClick={closeMenu}className={" capitalize opacity-70 hover:opacity-100"} to={"/shop"}>Shop all</NavLink>

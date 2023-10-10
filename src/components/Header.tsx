@@ -1,6 +1,7 @@
 
 import {AiOutlineMenu} from "react-icons/ai";
 import {BsHandbag, BsSearch} from "react-icons/bs";
+import SearchBar from "./search/SearchBar";
 
 
 const Header = ({showMenu} : {showMenu: any}) => {
@@ -13,10 +14,8 @@ const Header = ({showMenu} : {showMenu: any}) => {
                 <h1 className="uppercase text-primary-500 text-lg font-bold">Fake store</h1>
             </div>
 
-            <div className="bg-gray-100 hidden w-[50%] p-2 gap-4 rounded-lg md:flex">
-                <BsSearch style={{opacity: "0.3"}}  size={20}/>
-                <input placeholder="Search" className="bg-gray-100" type="text" />
-            </div>
+            <SearchBar type="desktop"/>            
+
 
             <button className="relative">
                 <BsHandbag size={35}/>
@@ -25,10 +24,7 @@ const Header = ({showMenu} : {showMenu: any}) => {
         </div>
 
         <div className="py-4 px-[3%] border-b-2 md:hidden">
-            <div className="bg-gray-100 flex p-2 gap-4 rounded-lg">
-                <BsSearch style={{opacity: "0.3"}}  size={20}/>
-                <input placeholder="Search" className="bg-gray-100 w-[100%]" type="text" />
-            </div>            
+            <SearchBar type="mobile"/>            
         </div>
     </header>)
 }

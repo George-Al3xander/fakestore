@@ -50,7 +50,7 @@ const SingleProductPage = () => {
                     <span className="flex items-center  justify-center font-bold gap-1"><BsFillStarFill style={{fill: "gold"}}/> {rating.rate} / 5</span>
                 </div>
                 <div className="mb-4 border-t-2 py-4">
-                    <h3 className="uppercase opacity-60">Description</h3>
+                    <h3 className="uppercase opacity-60 mb-4">Description</h3>
                     <p>{description}</p>
                 </div>
                 <div className="flex justify-between items-center border-t-2 py-4">

@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import Products from "./Products"
-import { typeProduct } from "../../types/types"
-import { useState, useEffect } from "react"
+
 import Spinner from "../Spinner"
 
 const ProductsPage = () => {
