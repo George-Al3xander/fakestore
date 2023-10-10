@@ -11,7 +11,8 @@ export default {
           700: "#05422C"
         },
         "secondary": "#68ceb6",
-        "accent": 'white'
+        "accent": 'white',
+        "ts": "rgba(0, 0, 0, 0.5)"
         
       },
       fontFamily: {

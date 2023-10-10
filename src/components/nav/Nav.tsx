@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom"
-import useFetch from "../hooks/useFetch"
+import useFetch from "../../hooks/useFetch"
 
 
 
@@ -8,7 +8,7 @@ const Nav = () => {
     const categories: string[] = useFetch('https://fakestoreapi.com/products/categories')!
     
     return(<div 
-    className='py-4 px-[3%] border-b-2 sticky top-0 bg-gray-900 text-accent hidden md:block'>
+    className='py-4 px-[3%] border-b-2 sticky z-50 top-0 bg-gray-900 text-accent hidden md:block'>
         <nav className="flex gap-4 header-nav">
             <NavLink className={"hover-underline-animation capitalize opacity-70 hover:opacity-100"} to={"/"}>Home</NavLink>
             <NavLink className={"hover-underline-animation capitalize opacity-70 hover:opacity-100"} to={"/shop"}>Shop all</NavLink>

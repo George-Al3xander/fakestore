@@ -16,8 +16,10 @@ const ProductsPage = () => {
     }
     const {data: products, isLoading, isError} = useQuery({queryKey: ["category",id],queryFn: getData})
 
-    if (isLoading) {        
-        return <Spinner />
+    if (isLoading) {   
+            return <div className="w-[100%] flex justify-center items-center h-[85vh]">
+                     <Spinner height={"85h"}/>
+                    </div>      
     }
 
     if(isError) {

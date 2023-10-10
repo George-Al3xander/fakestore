@@ -3,13 +3,13 @@ import {AiOutlineMenu} from "react-icons/ai";
 import {BsHandbag, BsSearch} from "react-icons/bs";
 
 
-const Header = () => {
+const Header = ({showMenu} : {showMenu: any}) => {
    
 
-    return(<header className="w-[100%]">
+    return(<header className="w-[100%] bg-accent z-30 sticky top-0 md:static">
         <div className="flex justify-between py-4 px-[3%]  border-b-2">
             <div className="flex items-center gap-4 ">
-                <button className="md:hidden"><AiOutlineMenu size={30}/></button>
+                <button onClick={showMenu} className="md:hidden"><AiOutlineMenu size={30}/></button>
                 <h1 className="uppercase text-primary-500 text-lg font-bold">Fake store</h1>
             </div>
 
