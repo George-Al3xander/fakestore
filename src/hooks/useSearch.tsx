@@ -29,8 +29,7 @@ const useSearch = (searchKey: string) => {
 
     useEffect(() => {        
         if(blankValid.test(searchKey) && searchKey.length > 2) {
-            refetch();
-            console.log("Here")
+            refetch();            
         }  
     }, [searchKey]) 
 

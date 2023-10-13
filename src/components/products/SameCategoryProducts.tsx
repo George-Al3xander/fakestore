@@ -4,7 +4,6 @@ import {useQuery} from "@tanstack/react-query"
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import Spinner from "../Spinner"
-import Products from "./Products"
 import Product from "./Product"
 
 
@@ -22,7 +21,7 @@ const SameCategoryProducts = ({product} : {product: typeProduct}) => {
           swipable: false
         },        
         mobile: {
-          breakpoint: { max: 464, min: 0 },
+          breakpoint: { max: 768, min: 0 },
           items: 1,
           swipeable: true
         }
@@ -36,7 +35,7 @@ const SameCategoryProducts = ({product} : {product: typeProduct}) => {
     }
     const {data, isLoading, isError } = useQuery({queryKey: ["category", category],queryFn: getSameCategory})
 
-
+    
     if (isLoading) {        
         return <Spinner height="10rem"/>
     }
