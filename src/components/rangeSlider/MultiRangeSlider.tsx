@@ -7,11 +7,11 @@ const MultiRangeSlider = ({ min, max, onChange }: { min: number, max: number, on
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
-  const range = useRef(null);
+  const range = useRef<HTMLInputElement>(null);
 
   // Convert to percentage
   const getPercent = useCallback(
-    (value) => Math.round(((value - min) / (max - min)) * 100),
+    (value: number) => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
 
@@ -72,8 +72,8 @@ const MultiRangeSlider = ({ min, max, onChange }: { min: number, max: number, on
       <div className="slider">
         <div className="slider__track" />
         <div ref={range} className="slider__range" />
-        <div className="slider__left-value">{minVal}</div>
-        <div className="slider__right-value">{maxVal}</div>
+        <div className="slider__left-value">${minVal}</div>
+        <div className="slider__right-value">${maxVal}</div>
       </div>
     </div>
   );
