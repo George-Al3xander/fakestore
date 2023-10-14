@@ -3,7 +3,8 @@ import {useQuery} from "@tanstack/react-query"
 
 import Spinner from "../Spinner"
 import ProductsMainDisplay from "./ProductsMainDisplay"
-
+import { typeProduct } from "../../types/types"
+import FilterMenu from "../FilterMenu"
 
 const ProductsPage = () => {
     const {id} = useParams()  
@@ -26,19 +27,13 @@ const ProductsPage = () => {
         return <div>Error</div>
     }
     
-
+    
+  
     
 
-    return(<div className="w-responsive mx-auto flex py-10" id={id} key={id}>        
-        <ul className="w-[30%] bg-red-200">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-        </ul>
+    return(<div className="w-responsive mx-auto flex gap-4 py-12" id={id} key={id}>           
+        <FilterMenu products={products}/>
         <ProductsMainDisplay products={products} />
-
     </div>)
 }
 
