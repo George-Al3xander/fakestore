@@ -1,25 +1,43 @@
-import { typeProduct } from "../types/types"
+import { typeFilters, typeProduct } from "../types/types"
 import MultiRangeSlider from "../components/rangeSlider/MultiRangeSlider"
 import {BsFillStarFill, BsStar} from "react-icons/bs"
+import {useState} from "react"
 
 
-
-const FilterMenu = ({products}: {products: typeProduct[]}) => {
+const FilterMenu = ({products, filters, setFilters}: {products: typeProduct[], filters: typeFilters,setFilters: any}) => {
+    const [priceFilter, setPriceFilter] = useState({min: 0,max: 0});
 
     const topPrice = products.sort((a: typeProduct, b: typeProduct) => {
         return b.price - a.price
     })[0].price
     const onChange = ({min, max}: {min: number, max: number}) => {
-       console.log(min, max)
+       console.log({min, max})
+    }
+
+    const defaultSettings = {
+        price: {
+            min:0,
+            max: topPrice
+        },
+        rating: [],
+        category: []
     }
     const ratings = [5,4,3,2,1]
 
     const categories = Array.from(new Set(products.map((prod) => {
         return prod.category
     })));
+
+    const changePriceFilter = () => {
+        setFilters({...filters, price: priceFilter})
+    }
+
+    const clearFilters = () => {
+        setFilters(defaultSettings)
+    }
    
 
-    return(<div className="basis-[60%] border-r-[1px] md:inline pr-4 hidden">
+    return(<div className="basis-[40%] border-r-[1px] md:inline pr-4 hidden">
         <h2 className="text-lg pb-4 border-b-[1px]">Filter</h2>
         <ul className="flex flex-col gap-4">
             <li className="py-4">
@@ -39,7 +57,9 @@ const FilterMenu = ({products}: {products: typeProduct[]}) => {
                 <h3 className="opacity-70 uppercase text-sm mb-4">Filter by reviews</h3>
                 <ul className="flex flex-col gap-4">
                    {ratings.map((rate) => {
-                    return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
+                    return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input onChange={(e) => {
+                        console.log(11)
+                    }} id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
                         {ratings.map((rate2) => {
                             if(ratings.indexOf(rate2) < rate) {
                                 return <BsFillStarFill size={20} style={{fill: "gold", }}/>

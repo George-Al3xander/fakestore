@@ -1,18 +1,29 @@
-import { typeProduct } from "../types/types"
+import { typeProduct, typeFilters } from "../types/types"
 import MultiRangeSlider from "../components/rangeSlider/MultiRangeSlider"
 import {BsFillStarFill, BsStar} from "react-icons/bs"
 import {AiOutlineClose} from "react-icons/ai"
-import {useRef} from "react"
+import {useRef, useState} from "react"
 
 
 
-const FilterMenuMobile = ({products, closeFilterMenu}: {products: typeProduct[], closeFilterMenu: any}) => {
-
+const FilterMenuMobile = ({products, closeFilterMenu, filters, setFilters}: {products: typeProduct[], closeFilterMenu: any, filters: typeFilters,setFilters: any}) => {
     const topPrice = products.sort((a: typeProduct, b: typeProduct) => {
         return b.price - a.price
     })[0].price
+
+    const defaultSettings = {
+        price: {
+            min:0,
+            max: topPrice
+        },
+        rating: [],
+        category: []
+    }
+
+
+    const [priceFilter, setPriceFilter] = useState({min: 0,max: 0});
     const onChange = ({min, max}: {min: number, max: number}) => {
-       console.log(min, max)
+       setPriceFilter({min,max})
     }
     const ratings = [5,4,3,2,1]
 
@@ -27,6 +38,14 @@ const FilterMenuMobile = ({products, closeFilterMenu}: {products: typeProduct[],
             closeFilterMenu();
         },300)
         
+    }
+
+    const changePriceFilter = () => {
+        setFilters({...filters, price: priceFilter})
+    }
+
+    const clearFilters = () => {
+        setFilters(defaultSettings)
     }
 
 
@@ -47,14 +66,14 @@ const FilterMenuMobile = ({products, closeFilterMenu}: {products: typeProduct[],
                 <li className="py-4">
                     <h3 className="opacity-70 uppercase text-sm">Filter by price</h3>
                     <MultiRangeSlider min={0} max={topPrice} onChange={onChange}/>
-                    <button className="whitespace-nowrap mt-8 text-sm text-accent bg-primary-500 px-5 py-2 mx-auto rounded-full  w-[min-content]">Apply</button>
+                    <button onClick={changePriceFilter} className="whitespace-nowrap mt-8 text-sm text-accent bg-primary-500 px-5 py-2 mx-auto rounded-full  w-[min-content]">Apply</button>
         
                 </li>
                 <li className="py-4">
                     <h3 className="opacity-70 uppercase text-sm mb-4">Filter by reviews</h3>
                     <ul className="flex flex-col gap-4">
                        {ratings.map((rate) => {
-                        return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
+                        return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input onChange={() =>console.log(11)} id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
                             {ratings.map((rate2) => {
                                 if(ratings.indexOf(rate2) < rate) {
                                     return <BsFillStarFill size={20} style={{fill: "gold", }}/>
@@ -69,7 +88,7 @@ const FilterMenuMobile = ({products, closeFilterMenu}: {products: typeProduct[],
         
                 </li>
                 <li className="border-t-[1px]">
-                    <button className="whitespace-nowrap mt-4  text-primary-500 bg-gray-100 hover:text-gray-100 transition-all duration-500 hover:bg-primary-500 px-5 py-2 mx-auto rounded-full  w-[min-content]">Clear filters</button>
+                    <button onClick={clearFilters} className="whitespace-nowrap mt-4  text-primary-500 bg-gray-100 hover:text-gray-100 transition-all duration-500 hover:bg-primary-500 px-5 py-2 mx-auto rounded-full  w-[min-content]">Clear filters</button>
                 </li>
             </ul>
         </div>

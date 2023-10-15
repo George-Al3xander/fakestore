@@ -15,7 +15,7 @@ function App() {
   const [count, setCount] = useState(0)
   const products = useFetch('https://fakestoreapi.com/products')
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [filterMenu, setFilterMenu] = useState(true);
+  
 
   const showMenu = () => {
     setMobileMenu(true)
@@ -25,13 +25,7 @@ function App() {
     setMobileMenu(false)
   }
 
-  const showFilterMenu = () => {
-    setFilterMenu(true)
-  }
-
-  const closeFilterMenu = () => {
-    setFilterMenu(false)
-  } 
+  
   return (
     <div>
       {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
@@ -40,8 +34,7 @@ function App() {
       <Routes>
         <Route path='/shop' element={<h1>Shop</h1>}/>
         <Route path='/products/:productId' element={<SingleProductPage />}/>
-        <Route path='/products/category/:id' element={<ProductsPage filterMenu={filterMenu} showFilterMenu={showFilterMenu} closeFilterMenu={closeFilterMenu}/>}/>
-
+        <Route path='/products/category/:id' element={<ProductsPage />}/>
       </Routes>
       <Footer />
     </div>

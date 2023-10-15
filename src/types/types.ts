@@ -10,3 +10,12 @@ export type typeProduct = {
       count: number
     }
   }
+
+export type typeFilters = {
+  price: {
+      min:number,
+      max: number
+  },
+  rating: number[],
+  category: string[]
+}

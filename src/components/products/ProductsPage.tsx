@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
+import { useState } from 'react'
 
 import Spinner from "../Spinner"
 import ProductsMainDisplay from "./ProductsMainDisplay"
@@ -7,15 +8,32 @@ import { typeProduct } from "../../types/types"
 import FilterMenu from "../../filter/FilterMenu"
 import FilterMenuMobile from "../../filter/FilterMenuMobile"
 
-const ProductsPage = ({filterMenu, showFilterMenu, closeFilterMenu} : {filterMenu :boolean, showFilterMenu: any, closeFilterMenu: any}) => {
+const ProductsPage = () => {
     const {id} = useParams()  
     //const [products, setProducts] = useState<typeProduct[]>([])
+    const [filterMenu, setFilterMenu] = useState(false);
     const getData = async () => {
         const apiLink = `https://fakestoreapi.com/products/category/${id}`
         const data = await fetch(`${apiLink}`)
         const res = await data.json()       
         return res
     }
+    const defaultSettings = {
+        price: {
+            min:0,
+            max: 0
+        },
+        rating: [],
+        category: []
+    }
+    const [filters, setFilters] = useState(defaultSettings); 
+    const showFilterMenu = () => {
+        setFilterMenu(true)
+    }
+    
+    const closeFilterMenu = () => {
+        setFilterMenu(false)
+    } 
     const {data: products, isLoading, isError} = useQuery({queryKey: ["category",id],queryFn: getData})
     
     if (isLoading) {   
@@ -27,15 +45,20 @@ const ProductsPage = ({filterMenu, showFilterMenu, closeFilterMenu} : {filterMen
     if(isError) {
         return <div>Error</div>
     }
+
+    const topPrice = products.sort((a: typeProduct, b: typeProduct) => {
+        return b.price - a.price
+    })[0].price
     
     
+
   
     
 
     return(<div className="w-responsive mx-auto flex gap-4 py-12" id={id} key={id}>           
-        <FilterMenu products={products}/>
+        <FilterMenu filters={filters} setFilters={setFilters} products={products}/>
         <ProductsMainDisplay showFilterMenu={showFilterMenu}  products={products} />
-        {filterMenu ? <FilterMenuMobile closeFilterMenu={closeFilterMenu} products={products}/>: null}
+        {filterMenu ? <FilterMenuMobile filters={filters} setFilters={setFilters} closeFilterMenu={closeFilterMenu} products={products}/>: null}
         
     </div>)
 }
