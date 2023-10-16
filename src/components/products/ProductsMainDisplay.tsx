@@ -8,6 +8,9 @@ import {AiOutlineDown} from "react-icons/ai"
 const ProductsMainDisplay = ({products, showFilterMenu} : {products: typeProduct[], showFilterMenu: any}) => {
     const [sortStatus, setSortStatus] = useState("rating")
     const sorted = useSortProducts(products, sortStatus)
+
+    
+
     return(<div>        
         <div className="flex justify-between border-b-[1px] pb-4 gap-4  mb-10 flex-wrap">
             <h1 className="text-xl font-bold">Shop</h1>
@@ -20,7 +23,7 @@ const ProductsMainDisplay = ({products, showFilterMenu} : {products: typeProduct
                 </select>
             </div>
         </div>
-        <Products products={sorted}/>
+        {products.length > 0 ? <Products products={sorted}/> : <h1>No matching :(</h1>}
 
     </div>)
 }

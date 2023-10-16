@@ -7,9 +7,14 @@ import {useRef, useState} from "react"
 
 
 const FilterMenuMobile = ({products, closeFilterMenu, filters, setFilters}: {products: typeProduct[], closeFilterMenu: any, filters: typeFilters,setFilters: any}) => {
+    const [priceFilter, setPriceFilter] = useState({min: 0,max: 0});
+
     const topPrice = products.sort((a: typeProduct, b: typeProduct) => {
         return b.price - a.price
     })[0].price
+    const onChange = ({min, max}: {min: number, max: number}) => {
+       setPriceFilter({min, max})
+    }
 
     const defaultSettings = {
         price: {
@@ -19,26 +24,11 @@ const FilterMenuMobile = ({products, closeFilterMenu, filters, setFilters}: {pro
         rating: [],
         category: []
     }
-
-
-    const [priceFilter, setPriceFilter] = useState({min: 0,max: 0});
-    const onChange = ({min, max}: {min: number, max: number}) => {
-       setPriceFilter({min,max})
-    }
     const ratings = [5,4,3,2,1]
 
     const categories = Array.from(new Set(products.map((prod) => {
         return prod.category
     })));
-    const menuRef = useRef<HTMLDivElement>(null)
-
-    const hideMenu = () => {
-        menuRef.current?.classList.add("slide-out")
-        setTimeout(() => {
-            closeFilterMenu();
-        },300)
-        
-    }
 
     const changePriceFilter = () => {
         setFilters({...filters, price: priceFilter})
@@ -47,7 +37,27 @@ const FilterMenuMobile = ({products, closeFilterMenu, filters, setFilters}: {pro
     const clearFilters = () => {
         setFilters(defaultSettings)
     }
-
+    
+    const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {checked, name} = e.target;
+        const rate = +name.split("-")[1]
+        let tempArray = {...filters};
+        if(checked) {
+            tempArray.rating.push(rate)
+        } else {
+            tempArray.rating = tempArray.rating.filter((rating) => rating != rate)
+        }
+        setFilters(tempArray)
+    }
+    
+    const menuRef = useRef<HTMLDivElement>(null)
+    const hideMenu = () => {
+        menuRef.current?.classList.add("slide-out")
+        setTimeout(() => {
+            closeFilterMenu();
+        },300)
+        
+    }
 
     return(<div className='bg-ts fixed w-[100%] top-0 left-0 md:hidden h-[100vh] z-50'>
         <div ref={menuRef} className="slide w-[60%] h-[100%] border-r-[1px] p-4 bg-accent ">
@@ -73,7 +83,7 @@ const FilterMenuMobile = ({products, closeFilterMenu, filters, setFilters}: {pro
                     <h3 className="opacity-70 uppercase text-sm mb-4">Filter by reviews</h3>
                     <ul className="flex flex-col gap-4">
                        {ratings.map((rate) => {
-                        return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input onChange={() =>console.log(11)} id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
+                        return  <label  htmlFor={`rating-${rate}`} className="flex gap-2 hover:cursor-pointer "><input checked={filters.rating.some((el) => el == rate)} onChange={handleRatingChange} id={`rating-${rate}`} name={`rating-${rate}`} key={`rating-${rate}`} type="checkbox" />
                             {ratings.map((rate2) => {
                                 if(ratings.indexOf(rate2) < rate) {
                                     return <BsFillStarFill size={20} style={{fill: "gold", }}/>
