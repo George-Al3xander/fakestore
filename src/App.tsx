@@ -9,14 +9,13 @@ import { Route, Routes } from 'react-router-dom'
 import ProductsPage from './components/products/ProductsPage'
 import SingleProductPage from './components/products/SingleProductPage'
 import MobileNav from './components/nav/MobileNav'
+import { typeProduct } from './types/types'
+import { CartContext } from './context/context'
 
 
-function App() {
-  const [count, setCount] = useState(0)
-  const products = useFetch('https://fakestoreapi.com/products')
+function App() { 
   const [mobileMenu, setMobileMenu] = useState(false);
   
-
   const showMenu = () => {
     setMobileMenu(true)
   }
@@ -25,18 +24,22 @@ function App() {
     setMobileMenu(false)
   }
 
+  const [cart, setCart] = useState<typeProduct[]>([])
+
   
   return (
     <div>
-      {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
-      <Header showMenu={showMenu}/>
-      <Nav/>    
-      <Routes>
-        <Route path='/shop' element={<h1>Shop</h1>}/>
-        <Route path='/products/:productId' element={<SingleProductPage />}/>
-        <Route path='/products/category/:id' element={<ProductsPage />}/>
-      </Routes>
-      <Footer />
+      <CartContext.Provider value={{cart, setCart}}>
+        {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
+        <Header showMenu={showMenu}/>
+        <Nav/>    
+        <Routes>
+          <Route path='/shop' element={<ProductsPage />}/>
+          <Route path='/products/:productId' element={<SingleProductPage />}/>
+          <Route path='/products/category/:id' element={<ProductsPage />}/>
+        </Routes>
+        <Footer />
+      </CartContext.Provider>
     </div>
   )
 }

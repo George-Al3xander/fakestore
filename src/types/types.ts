@@ -8,7 +8,8 @@ export type typeProduct = {
     rating: {
       rate: number,
       count: number
-    }
+    },
+    count?: number
   }
 
 export type typeFilters = {

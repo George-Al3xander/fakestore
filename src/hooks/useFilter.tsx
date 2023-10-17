@@ -29,6 +29,11 @@ const useFilter = ({products, filters}: {products: typeProduct[], filters: typeF
                 if(filters.rating.length > 0) {
                     finalRes = finalRes.filter((prod) => filters.rating.some((rate) => Math.floor(prod.rating.rate) == rate))
                 }
+                if(filters.category.length > 0) {
+                    finalRes = finalRes.filter((prod) => filters.category.some((cat) => prod.category == cat))
+
+                }
+
                 setFiltered(finalRes)
             }
         } else {

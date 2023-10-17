@@ -1,9 +1,8 @@
-import { useParams } from "react-router-dom"
+import { useParams, NavLink } from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import {BsFillStarFill} from "react-icons/bs"
 import {useState} from "react"
 import Spinner from "../Spinner"
-
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 import { typeProduct } from "../../types/types"
 import SameCategoryProducts from "./SameCategoryProducts"
@@ -43,7 +42,9 @@ const SingleProductPage = () => {
                 <img className="" src={image} alt={title} />
             </div>
             <div className="flex flex-col gap-4">
-                <h3 className="uppercase opacity-60">{category}</h3>
+                <NavLink key={"navlink-" + id} to={`/products/category/${category}`}>
+                    <h3 className="uppercase opacity-60">{category}</h3>
+                </NavLink>                 
                 <h1 className="font-bold text-2xl">{title}</h1>
                 <div className="flex justify-between items-center mb-10">
                     <h3 className="font-bold text-red-500 text-lg">${price}</h3>
