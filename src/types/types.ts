@@ -20,3 +20,10 @@ export type typeFilters = {
   rating: number[],
   category: string[]
 }
+
+
+export type typeCartContext = {
+  cart: typeProduct[], 
+  setCart: any,
+  addToCart: Function
+}

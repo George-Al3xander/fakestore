@@ -1,11 +1,12 @@
 import { useParams, NavLink } from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import {BsFillStarFill} from "react-icons/bs"
-import {useState} from "react"
+import {useState, useContext} from "react"
 import Spinner from "../Spinner"
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 import { typeProduct } from "../../types/types"
 import SameCategoryProducts from "./SameCategoryProducts"
+import { CartContext } from "../../context/context"
 
 const SingleProductPage = () => {
     const {productId} = useParams()
@@ -21,6 +22,10 @@ const SingleProductPage = () => {
 
     const {data: product, isLoading, isError} = useQuery({queryKey: ["product",productId],queryFn: getData})
     const [count, setCount] = useState(1);
+    
+    const {addToCart} = useContext(CartContext)
+    
+
     if (isLoading) {        
         return <Spinner  height="85vh"/>
     }
@@ -56,7 +61,7 @@ const SingleProductPage = () => {
                 </div>
                 <div className="flex justify-between items-center border-t-2 py-4">
                     <div className="flex items-center gap-2"><button className="disabled:opacity-30 disabled:cursor-not-allowed" disabled={count -2 < 0} onClick={substractCount}><AiOutlineMinus /></button> <span className="bg-gray-300 rounded text-lg w-[30px] h-[30px] text-center items-center">{count}</span> <button className="disabled:opacity-30 disabled:cursor-not-allowed" disabled={rating.count < count} onClick={addCount}><AiOutlinePlus /></button></div>
-                    <button  className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3  rounded-full  w-[min-content]">Add to Cart | ${count * price}</button>
+                    <button onClick={() =>addToCart(product, count)}  className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3  rounded-full  w-[min-content]">Add to Cart | ${count * price}</button>
                 </div>
             </div>
         </div>
