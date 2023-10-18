@@ -10,7 +10,7 @@ import MobileNav from './components/nav/MobileNav'
 import { typeProduct } from './types/types'
 import { CartContext } from './context/context'
 import OrderNotification from './components/OrderNotification'
-
+import Cart from './components/cart/Cart'
 
 function App() { 
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -27,14 +27,16 @@ function App() {
   const [orderProduct, setOrderProduct] = useState<typeProduct | null>(null)
   const [notification, setNotification] = useState(false)
 
+  const [cartStatus, setCartStatus] = useState(false)
+
   const addToCart = (product: typeProduct, count: number) => {
     if(cart.length == 0) {
         setCart([{...product, count}])
     } else {
-        const newItem = cart.some((el) => el.id != product.id)
+        const newItem = cart.some((el) => el.id != product.id)        
         if(newItem) {    
           setCart([...cart, {...product, count}])    
-        } else {            
+        } else {     
           const tempArray = cart.map((item) => {
             if(item.id == product.id) {
               return {...item, count: item.count! + count}
@@ -45,16 +47,17 @@ function App() {
           setCart(tempArray)          
         }
     }
-    setOrderProduct(product)
+    setOrderProduct(product)    
     setNotification(true);
   }
   
   return (
     <div>
       <CartContext.Provider value={{cart, setCart, addToCart}}>
-       {notification ?  <OrderNotification  setNotification={setNotification} product={orderProduct!}/> : null}
+       {notification ?  <OrderNotification setCartStatus={setCartStatus} setNotification={setNotification} product={orderProduct!}/> : null}
         {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
-        <Header showMenu={showMenu}/>
+        {cartStatus ? <Cart cart={cart} setCart={setCart} setCartStatus={setCartStatus}/> : null}
+        <Header setCartStatus={setCartStatus} showMenu={showMenu}/>
         <Nav/>    
         <Routes>
           <Route path='/shop' element={<ProductsPage />}/>

@@ -219,7 +219,7 @@ header input {
       
     }
     100% { 
-      right: 1rem; 
+      right: 0; 
       position: fixed;     
     }
 }
