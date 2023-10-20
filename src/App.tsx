@@ -11,6 +11,7 @@ import { typeProduct } from './types/types'
 import { CartContext } from './context/context'
 import OrderNotification from './components/OrderNotification'
 import Cart from './components/cart/Cart'
+import OrderPage from './components/order/OrderPage'
 
 function App() { 
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -29,14 +30,12 @@ function App() {
 
   const [cartStatus, setCartStatus] = useState(false)
 
-  const addToCart = (product: typeProduct, count: number) => {
+  const addToCart = (product: typeProduct, count: number) => {    
     if(cart.length == 0) {
         setCart([{...product, count}])
     } else {
-        const newItem = cart.some((el) => el.id != product.id)        
-        if(newItem) {    
-          setCart([...cart, {...product, count}])    
-        } else {     
+        const oldItem = cart.some((el) => el.id == product.id) 
+        if(oldItem) {    
           const tempArray = cart.map((item) => {
             if(item.id == product.id) {
               return {...item, count: item.count! + count}
@@ -45,15 +44,22 @@ function App() {
             }            
           })
           setCart(tempArray)          
+        } else {    
+          setCart([...cart, {...product, count}])             
         }
     }
     setOrderProduct(product)    
     setNotification(true);
   }
+
+  const removeFromCart = (id:number) => {
+    const tempArray = cart.filter((prod) => prod.id != id)
+    setCart(tempArray)
+  }
   
   return (
     <div>
-      <CartContext.Provider value={{cart, setCart, addToCart}}>
+      <CartContext.Provider value={{cart, setCart, addToCart, removeFromCart}}>
        {notification ?  <OrderNotification setCartStatus={setCartStatus} setNotification={setNotification} product={orderProduct!}/> : null}
         {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
         {cartStatus ? <Cart cart={cart} setCart={setCart} setCartStatus={setCartStatus}/> : null}
@@ -63,6 +69,7 @@ function App() {
           <Route path='/shop' element={<ProductsPage />}/>
           <Route path='/products/:productId' element={<SingleProductPage />}/>
           <Route path='/products/category/:id' element={<ProductsPage />}/>
+          <Route path='/order/*' element={<OrderPage />}/>
         </Routes>
         <Footer />
       </CartContext.Provider>

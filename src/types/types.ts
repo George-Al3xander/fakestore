@@ -25,5 +25,6 @@ export type typeFilters = {
 export type typeCartContext = {
   cart: typeProduct[], 
   setCart: any,
-  addToCart: Function
+  addToCart: Function,
+  removeFromCart: Function
 }

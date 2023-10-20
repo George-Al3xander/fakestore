@@ -3,6 +3,7 @@ import {AiOutlineClose} from "react-icons/ai"
 import {BsHandbag} from "react-icons/bs";
 import CartItem from "./CartItem";
 import {useRef} from "react"
+import { NavLink } from "react-router-dom";
 
 
 const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart: any, setCartStatus: any}) => {
@@ -17,7 +18,7 @@ const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart: an
         cartRef.current!.classList.add('slide-out-right');
         setTimeout(() => {            
             setCartStatus(false)
-        },850)         
+        },550)         
     }
 
     if(cart.length == 0) {
@@ -52,7 +53,10 @@ const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart: an
                 <span className="text-xl text-red-600 font-bold">${total}</span>
             </div>
             <div className="p-4">
-                <button className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
+                <NavLink to={"/order"}>
+                    <button className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
+
+                </NavLink>
             </div>
         </div>
     </div>)
