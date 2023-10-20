@@ -54,7 +54,7 @@ const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart: an
             </div>
             <div className="p-4">
                 <NavLink to={"/order"}>
-                    <button className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
+                    <button onClick={() => setCartStatus(false)} className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
 
                 </NavLink>
             </div>

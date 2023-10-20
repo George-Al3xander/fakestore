@@ -1,33 +1,33 @@
-import { useContext } from "react"
+
 import { typeProduct } from "../../types/types"
-import {AiOutlineClose} from "react-icons/ai"
-import { CartContext } from "../../context/context"
+import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 
 
 
 
-const OrderItem = ({product}: {product: typeProduct}) => {
+const OrderItem = ({product, addCount, decrementCount}: {product: typeProduct, addCount:Function, decrementCount:Function}) => {
 
     const total = product.price *  product.count!
-    
-    return <li className="flex justify-between border-b-2 py-2 gap-4">
+    const {count, rating,price, title, id} = product
+
+ 
+    return <li className="flex justify-between border-b-2 items-center py-4 gap-10 md:gap-4 flex-wrap ">
         <div className="flex gap-4">
             <div className="w-[2rem] h-[2rem] overflow-hidden">
                 <img className="w-[100%] h-[100%] object-contain" src={product.image} alt={`cart-${product.id}`} />
             </div>
-            <div className="flex flex-col justify-between">
-                <h2 className="opacity-60 font-medium">{product.title}</h2>
-                <div className="opacity-70 flex gap-2">
-                    <span>{product.count}x</span>
-                    <h4 className="text-medium">${product.price}</h4>
-                </div>
-            </div>
+            <h2 title={title} className="opacity-60 font-medium max-w-[200px]  whitespace-nowrap float-left text-ellipsis overflow-hidden">{product.title}</h2>           
         </div>
 
-        <div className="flex flex-col justify-between">
-            <button style={{marginLeft: "auto"}} onClick={() => removeFromCart(product.id)}><AiOutlineClose /></button>
-            <h3 className="font-bold">${total}</h3>
+        <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2"><button className="disabled:opacity-30 disabled:cursor-not-allowed" disabled={count! -2 < 0} onClick={() => decrementCount(id)} ><AiOutlineMinus /></button> <span className="bg-gray-300 rounded text-lg w-[30px] h-[30px] text-center items-center">{count}</span> <button className="disabled:opacity-30 disabled:cursor-not-allowed" onClick={() => addCount(id)} disabled={rating.count < count!}><AiOutlinePlus /></button></div>
+            <span className="font-medium">${price}</span>
         </div>
+        
+        <span className="font-medium">${total}</span>
+
+
+        
     </li>
 }
 
