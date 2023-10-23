@@ -28,3 +28,26 @@ export type typeCartContext = {
   addToCart: Function,
   removeFromCart: Function
 }
+
+export type typeCountry = {
+  name: {
+    common: string,
+    official: string
+  }
+}
+
+
+export type typeFormData = {
+  name: {
+    first: string,
+    last: string,
+  },
+  country: typeCountry | string,
+  apartment?: string,
+  street: string,
+  city: string,
+  postcode: string | number,
+  phone?:string,
+  email: string,
+  notes?: string 
+}
