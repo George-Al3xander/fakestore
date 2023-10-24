@@ -24,7 +24,7 @@ export type typeFilters = {
 
 export type typeCartContext = {
   cart: typeProduct[], 
-  setCart: any,
+  //setCart: any,
   addToCart: Function,
   removeFromCart: Function
 }
@@ -46,8 +46,14 @@ export type typeFormData = {
   apartment?: string,
   street: string,
   city: string,
-  postcode: string | number,
+  postcode: string,
   phone?:string,
   email: string,
   notes?: string 
 }
+
+
+export type typeAction = 
+ | {type: "ADD", product: typeProduct, count: number } 
+ |{type: "REMOVE",id: string } 
+ |{type: "CHANGE",id: string, changeType: string} 

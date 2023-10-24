@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import Header from './components/Header'
 import Nav from './components/nav/Nav'
 
@@ -7,11 +7,12 @@ import { Route, Routes } from 'react-router-dom'
 import ProductsPage from './components/products/ProductsPage'
 import SingleProductPage from './components/products/SingleProductPage'
 import MobileNav from './components/nav/MobileNav'
-import { typeProduct } from './types/types'
+import { typeAction, typeProduct } from './types/types'
 import { CartContext } from './context/context'
 import OrderNotification from './components/OrderNotification'
 import Cart from './components/cart/Cart'
 import OrderPage from './components/order/OrderPage'
+import { useCart } from './hooks/useCart'
 
 function App() { 
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -24,45 +25,29 @@ function App() {
     setMobileMenu(false)
   }
 
-  const [cart, setCart] = useState<typeProduct[]>([])
+  
   const [orderProduct, setOrderProduct] = useState<typeProduct | null>(null)
   const [notification, setNotification] = useState(false)
 
+
+  const {cart, addToCart, removeFromCart} = useCart()
+
   const [cartStatus, setCartStatus] = useState(false)
 
-  const addToCart = (product: typeProduct, count: number) => {    
-    if(cart.length == 0) {
-        setCart([{...product, count}])
-    } else {
-        const oldItem = cart.some((el) => el.id == product.id) 
-        if(oldItem) {    
-          const tempArray = cart.map((item) => {
-            if(item.id == product.id) {
-              return {...item, count: item.count! + count}
-            } else {
-              return item
-            }            
-          })
-          setCart(tempArray)          
-        } else {    
-          setCart([...cart, {...product, count}])             
-        }
-    }
-    setOrderProduct(product)    
-    setNotification(true);
-  }
+  // const addToCart = (product: typeProduct, count: number) => {    
+  //   //dispatch({type: "ADD", product,count})
+  //   setOrderProduct(product)    
+  //   setNotification(true);
+  // }
 
-  const removeFromCart = (id:number) => {
-    const tempArray = cart.filter((prod) => prod.id != id)
-    setCart(tempArray)
-  }
+   
   
   return (
     <div>
-      <CartContext.Provider value={{cart, setCart, addToCart, removeFromCart}}>
+      <CartContext.Provider value={{cart, addToCart, removeFromCart}}>
        {notification ?  <OrderNotification setCartStatus={setCartStatus} setNotification={setNotification} product={orderProduct!}/> : null}
         {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
-        {cartStatus ? <Cart cart={cart} setCart={setCart} setCartStatus={setCartStatus}/> : null}
+        {cartStatus ? <Cart cart={cart}  setCartStatus={setCartStatus}/> : null}
         <Header setCartStatus={setCartStatus} showMenu={showMenu}/>
         <Nav/>    
         <Routes>

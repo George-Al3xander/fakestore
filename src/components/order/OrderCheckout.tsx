@@ -3,13 +3,14 @@ import { CartContext } from "../../context/context"
 import CountriesSelect from "./CountriesSelect"
 import { typeFormData } from "../../types/types"
 import {useEffect} from "react"
+import useFormValidate from "../../hooks/useFormValidate"
 
 
 const OrderCheckout = () => {
     
     const [formData, setFormData] = useState<typeFormData | null>(null)
-    
-    const handleChange = (e) => {
+    const {nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid} = useFormValidate(formData!);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const {name,value} = e.target;
         const title = name.split("-");
         //console.log(name)
@@ -44,7 +45,7 @@ const OrderCheckout = () => {
         <fieldset className="flex flex-col gap-4">
         <label className="uppercase opacity-80" htmlFor="street">Country / Region*</label>
             <div className="flex flex-col gap-2">
-                <input onChange={handleChange} placeholder="House number and street" className="p-2 border-[1px] rounded" type="text" id="street" name="street"/>
+                <input required onChange={handleChange} placeholder="House number and street" className="p-2 border-[1px] rounded" type="text" id="street" name="street"/>
                 <input onChange={handleChange} placeholder="Apartment, suite, unit, etc.(optional)" className="p-2 border-[1px] rounded" type="text" id="street-additional" name="apartment"/>
             </div>
 

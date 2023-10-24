@@ -6,7 +6,7 @@ import {useRef} from "react"
 import { NavLink } from "react-router-dom";
 
 
-const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart: any, setCartStatus: any}) => {
+const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart?: any, setCartStatus: any}) => {
 
     const total = cart.reduce((prev: number, curr: typeProduct) => {            
         return prev + curr.count! *  curr.price
