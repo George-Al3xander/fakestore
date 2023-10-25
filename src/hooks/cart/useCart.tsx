@@ -1,5 +1,5 @@
-import { typeAction, typeProduct } from "../types/types";
-import { createContext, useCallback, useReducer} from 'react'
+import { typeAction, typeProduct } from "../../types/types";
+import { createContext, useCallback, useContext, useReducer} from 'react'
 
 type useCartManagerResult = ReturnType<typeof useCartManager>;
 
@@ -65,6 +65,38 @@ export const useCartManager = () => {
 }
 
 
-export const CartProvider:React.FunctionComponent = (children) => (
+export const CartProvider = ({children}: {children: React.ReactNode}) => (
     <CartContext.Provider value={useCartManager()}>{children}</CartContext.Provider>
 )
+
+
+export const useCart = () => {
+  const {cart} = useContext(CartContext)
+
+  return cart
+}
+
+export const useAddToCart = () => {
+  const {addToCart} = useContext(CartContext)
+
+  return addToCart
+}
+
+export const useRemoveFromCart = () => {
+  const {removeFromCart} = useContext(CartContext)
+
+  return removeFromCart
+}
+
+
+export const useIncrementProduct = () => {
+  const {incrementProduct} = useContext(CartContext)
+
+  return incrementProduct
+}
+
+export const useDecrementProduct = () => {
+  const {decrementProduct} = useContext(CartContext)
+
+  return decrementProduct
+}

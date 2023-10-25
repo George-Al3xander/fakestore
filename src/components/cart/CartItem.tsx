@@ -1,7 +1,7 @@
-import { useContext } from "react"
+import { useRemoveFromCart } from "../../hooks/cart/useCart"
 import { typeProduct } from "../../types/types"
 import {AiOutlineClose} from "react-icons/ai"
-import { CartContext } from "../../context/context"
+
 
 
 
@@ -9,7 +9,7 @@ import { CartContext } from "../../context/context"
 const CartItem = ({product}: {product: typeProduct}) => {
 
     const total = product.price *  product.count!
-    const {removeFromCart} = useContext(CartContext)
+    const removeFromCart = useRemoveFromCart()
     return <li className="flex justify-between border-b-2 py-2 gap-4">
         <div className="flex gap-4">
             <div className="w-[5rem] h-[5rem] overflow-hidden">

@@ -4,16 +4,18 @@ import {BsHandbag} from "react-icons/bs";
 import CartItem from "./CartItem";
 import {useRef} from "react"
 import { NavLink } from "react-router-dom";
+import { useCart } from "../../hooks/cart/useCart";
+import { useChangeCartStatus } from "../../hooks/cart/useCartStatus";
 
 
-const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart?: any, setCartStatus: any}) => {
-
+const Cart = () => {
+    const cart = useCart();
     const total = cart.reduce((prev: number, curr: typeProduct) => {            
         return prev + curr.count! *  curr.price
     }, 0) 
 
     const cartRef = useRef<HTMLDivElement>(null)
-
+    const setCartStatus = useChangeCartStatus()
     const hideCart = () => {         
         cartRef.current!.classList.add('slide-out-right');
         setTimeout(() => {            
@@ -37,8 +39,8 @@ const Cart = ({cart, setCart, setCartStatus} : {cart: typeProduct[], setCart?: a
 
 
 
-    return(<div  className='bg-ts fixed w-[100%]  h-[100vh] z-[150]'>
-        <div ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed  w-[100%] md:w-[50%]">
+    return(<div onClick={() => hideCart()}  className='bg-ts fixed w-[100%]  h-[100vh] z-[150]'>
+        <div onClick={(e) => e.stopPropagation()} ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed  w-[100%] md:w-[50%]">
             <div className="flex justify-between items-center border-b-2 p-4">
                 <h2 className="text-lg font-medium">Your cart</h2>
                 <button onClick={hideCart}><AiOutlineClose size={20}/></button>

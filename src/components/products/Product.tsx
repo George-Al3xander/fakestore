@@ -1,11 +1,13 @@
 import { typeProduct } from "../../types/types"
-import {BsFillStarFill} from "react-icons/bs"
+import {BsFillStarFill, BsCartCheckFill} from "react-icons/bs"
 import { NavLink } from "react-router-dom"
-import { CartContext } from "../../context/context"
-import {useContext} from "react"
+import { useAddToCart, useCart } from "../../hooks/cart/useCart"
 
-const Product = ({title, id,price, image,category, rating} : typeProduct) => {
-    const {addToCart} = useContext(CartContext)
+
+const Product = ({title, id,price, image,category, rating,description} : typeProduct) => {
+    const addToCart = useAddToCart();
+    const cart = useCart();
+    const isInCart = cart.some((prod) => prod.id == id)
     return(
     <li className="grid grid-cols-1  gap-4 rounded overflow-hidden" key={"product-div-display" + id}>
         <NavLink key={"1navlink-" + id}  to={`/products/${id}`}>                
@@ -22,7 +24,11 @@ const Product = ({title, id,price, image,category, rating} : typeProduct) => {
             </NavLink>
             <span className="flex items-center  justify-center font-bold gap-1"><BsFillStarFill style={{fill: "gold"}}/> {rating.rate} / 5</span>
             <h3 className="text-medium text-red-500">${price}</h3>
-            <button onClick={() => addToCart({title, id, price, image,category, rating}, 1)} className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3 mx-auto rounded-full  w-[min-content]">Add to Cart</button>
+            {isInCart ? 
+            <button disabled  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 px-5 flex items-center gap-1 py-3 mx-auto rounded-full  w-[min-content]"><BsCartCheckFill />Already in cart</button>
+            :
+            <button onClick={() => addToCart({title, id, price, image,category, rating,description}, 1)} className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3 mx-auto rounded-full  w-[min-content]">Add to Cart</button>
+            }
         </div>
     </li>)
 }

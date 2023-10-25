@@ -1,25 +1,28 @@
+import { useLocation } from "react-router-dom"
+import { useCart } from "../hooks/cart/useCart"
+import useNotification from "../hooks/useNotification"
 import { typeProduct } from "../types/types"
 
-import {useRef, useEffect} from "react"
+import {useRef} from "react"
 
 
-const OrderNotification = ({product,  setNotification, setCartStatus}: {product: typeProduct,  setNotification: any, setCartStatus: any}) => {
-
+const OrderNotification = () => {
+   
+    const location = useLocation()
+    const path = location.pathname.split("/")[1]
+    
     const notificationRef = useRef<HTMLDivElement>(null)
-
-    const hideNotificaion = () => {         
-        notificationRef.current!.classList.add('slide-out-right');
-        setTimeout(() => {            
-            setNotification(false)
-        },850)         
+    const status = useNotification(notificationRef);
+    const cart = useCart()
+    const product = cart[cart.length-1]
+    
+    if(path == "order") {
+        return null
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            hideNotificaion()
-        },5000)
-    },[])
-
+    if(status == false) {
+        return null;
+    } 
     
 
     return(<div ref={notificationRef} className="slide-in bg-black text-accent fixed right-10 mr-10 top-[20%] rounded p-1 z-[20] flex items-center">
@@ -27,8 +30,8 @@ const OrderNotification = ({product,  setNotification, setCartStatus}: {product:
             <img className="w-[100%] h-[100%] object-cover" src={product.image} alt="Notificaion" />
        </div>
        <div className="p-2 flex gap-4">
-            <span onClick={hideNotificaion}>Product added to cart</span>
-            <button onClick={() => setCartStatus(true)} className="text-primary-500">Cart</button>
+            <span>Product added to cart</span>
+            <button onClick={() => {}} className="text-primary-500">Cart</button>
        </div>
     </div>)
 }

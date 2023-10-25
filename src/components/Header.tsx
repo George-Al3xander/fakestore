@@ -2,14 +2,14 @@
 import {AiOutlineMenu} from "react-icons/ai";
 import {BsHandbag} from "react-icons/bs";
 import SearchBar from "./search/SearchBar";
-import { useContext } from "react";
-import { CartContext } from "../context/context";
 import { typeProduct } from "../types/types";
+import { useCart } from "../hooks/cart/useCart";
+import { useCartStatusManager, useChangeCartStatus } from "../hooks/cart/useCartStatus";
 
 
-const Header = ({showMenu, setCartStatus} : {showMenu: any, setCartStatus: any}) => {
-    const {cart} = useContext(CartContext)
-
+const Header = ({showMenu} : {showMenu: any}) => {
+    const cart = useCart();
+    const setCartStatus = useChangeCartStatus()
     const total = cart.reduce((prev: number, curr: typeProduct) => {            
         return prev + curr.count!
     }, 0)   
