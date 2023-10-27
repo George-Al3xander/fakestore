@@ -43,12 +43,12 @@ export type typeFormData = {
     last: string,
   },
   country: typeCountry | string,
-  apartment?: string,
   street: string,
   city: string,
   postcode: string,
-  phone?:string,
   email: string,
+  phone?:string,
+  apartment?: string,
   notes?: string 
 }
 

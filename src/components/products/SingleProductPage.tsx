@@ -1,17 +1,19 @@
 import { useParams, NavLink } from "react-router-dom"
 import {useQuery} from "@tanstack/react-query"
 import {BsFillStarFill, BsCartCheckFill} from "react-icons/bs"
-import {useState, useContext, useCallback} from "react"
+import {useState} from "react"
 import Spinner from "../Spinner"
 import {AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 import { typeProduct } from "../../types/types"
 import SameCategoryProducts from "./SameCategoryProducts"
 import { useAddToCart, useCart } from "../../hooks/cart/useCart"
+import { useShowCart } from "../../hooks/cart/useCartStatus"
 
 
 const SingleProductPage = () => {
     const {productId} = useParams()
 
+    const showCart = useShowCart()
     const getData = async () => {
         const apiLink = `https://fakestoreapi.com/products/${productId}`
         const data = await fetch(`${apiLink}`)
@@ -63,7 +65,7 @@ const SingleProductPage = () => {
                 </div>
                 <div className="flex justify-between items-center border-t-2 py-4">
                     {isInCart ?
-                    <button  disabled  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 flex items-center px-5 py-3 ml-auto  rounded-full  w-[min-content]"><BsCartCheckFill />Already in cart</button>
+                    <button  onClick={showCart}  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 flex items-center px-5 py-3 ml-auto  rounded-full  w-[min-content]"><BsCartCheckFill />Already in cart</button>
                     
                     :
                     <>

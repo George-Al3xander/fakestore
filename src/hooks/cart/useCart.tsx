@@ -8,7 +8,7 @@ const CartContext = createContext<useCartManagerResult>({
     addToCart: () => {},
     removeFromCart: () => {},
     incrementProduct: () => {}, 
-    decrementProduct: () => {}
+    decrementProduct: () => {},
 });
 
 export const useCartManager = () => {
@@ -61,7 +61,10 @@ export const useCartManager = () => {
         const decrementProduct = useCallback((id: string) => {
             dispatch({type: "CHANGE", id, changeType: "DECREMENT"})
         },[])
-    return {cart, addToCart, removeFromCart, incrementProduct, decrementProduct }
+
+        
+
+    return {cart, addToCart, removeFromCart, incrementProduct, decrementProduct}
 }
 
 

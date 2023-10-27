@@ -3,13 +3,15 @@ import {AiOutlineMenu} from "react-icons/ai";
 import {BsHandbag} from "react-icons/bs";
 import SearchBar from "./search/SearchBar";
 import { typeProduct } from "../types/types";
-import { useCart } from "../hooks/cart/useCart";
-import { useCartStatusManager, useChangeCartStatus } from "../hooks/cart/useCartStatus";
+import { useCart} from "../hooks/cart/useCart";
+import { useShowCart } from "../hooks/cart/useCartStatus";
 
 
 const Header = ({showMenu} : {showMenu: any}) => {
     const cart = useCart();
-    const setCartStatus = useChangeCartStatus()
+    const showCart = useShowCart()
+   
+
     const total = cart.reduce((prev: number, curr: typeProduct) => {            
         return prev + curr.count!
     }, 0)   
@@ -23,7 +25,7 @@ const Header = ({showMenu} : {showMenu: any}) => {
             <SearchBar type="desktop"/>            
 
 
-            <button onClick={() => setCartStatus(true)} className="relative">
+            <button onClick={showCart} className="relative">
                 <BsHandbag size={35}/>
                 <h3 className="absolute top-[50%] text-accent font-bold right-[3%] text-xs bg-red-600 p-1 w-[23px] h-[23px] text-center  rounded-[50%]">{total}</h3>
             </button>

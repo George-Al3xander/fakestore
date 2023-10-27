@@ -4,8 +4,8 @@ import {BsHandbag} from "react-icons/bs";
 import CartItem from "./CartItem";
 import {useRef} from "react"
 import { NavLink } from "react-router-dom";
-import { useCart } from "../../hooks/cart/useCart";
-import { useChangeCartStatus } from "../../hooks/cart/useCartStatus";
+import { useCart} from "../../hooks/cart/useCart";
+import { useCartStatus, useHideCart } from "../../hooks/cart/useCartStatus";
 
 
 const Cart = () => {
@@ -13,19 +13,26 @@ const Cart = () => {
     const total = cart.reduce((prev: number, curr: typeProduct) => {            
         return prev + curr.count! *  curr.price
     }, 0) 
-
     const cartRef = useRef<HTMLDivElement>(null)
-    const setCartStatus = useChangeCartStatus()
+    const status = useCartStatus()
+    
+    const closeCart = useHideCart()
     const hideCart = () => {         
         cartRef.current!.classList.add('slide-out-right');
         setTimeout(() => {            
-            setCartStatus(false)
+           closeCart()
         },550)         
     }
+    
+    if(status == false) {
+        return null
+    }
+
+    
 
     if(cart.length == 0) {
-        return(<div  className='bg-ts fixed w-[100%]  h-[100vh] z-[150]'>
-        <div ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed p-4  w-[100%] md:w-[50%]">
+        return(<div onClick={hideCart}  className='bg-ts fixed w-[100%]  h-[100vh] z-[150]'>
+        <div onClick={(e) => e.stopPropagation} ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed p-4  w-[100%] md:w-[50%]">
             <div className="flex justify-between items-center border-b-2 pb-4">
                 <h2 className="text-lg font-medium">Your cart</h2>
                 <button onClick={hideCart}><AiOutlineClose size={20}/></button>
@@ -56,7 +63,7 @@ const Cart = () => {
             </div>
             <div className="p-4">
                 <NavLink to={"/order"}>
-                    <button onClick={() => setCartStatus(false)} className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
+                    <button onClick={hideCart} className="whitespace-nowrap text-accent bg-primary-500 px-8 py-4 mx-auto rounded-full  w-[min-content]">Checkout</button>
 
                 </NavLink>
             </div>
