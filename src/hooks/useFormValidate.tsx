@@ -1,7 +1,7 @@
 import { typeFormData } from "../types/types";
-
 import {useEffect, useState} from "react"
 import { useOrderInfoValid } from "./useOreder";
+
 
 
 const useFormValidate = (formData: typeFormData) => {
@@ -27,72 +27,32 @@ const useFormValidate = (formData: typeFormData) => {
         }
     }
 
+    
+
     useEffect(() => {                  
-            if(stringValid([formData.name.first, formData.name.last])) {
-                setNameValid(true)
-            } else {
-                setNameValid(false)
-            }
+            setNameValid(stringValid([formData.name.first, formData.name.last]))
+            setStreetValid(stringValid(formData.street))
+            setCityValid(stringValid(formData.city))
+            setPostcodeValid(stringValid(formData.postcode))
+            setEmailValid(emailValidation.test(formData.email))
+            setCountryValid(blankValid.test(formData.country))
+            
 
-            if(stringValid(formData.street)) {
-                setStreetValid(true)
-            } else {
-                setStreetValid(false)
-            }
-
-            if(stringValid(formData.city)) {
-                setCityValid(true)
-            } else {
-                setCityValid(false)
-            }
-
-            if(formData.country) {
-                setCountryValid(true)
-            } else {
-                setCountryValid(false)
-            }
-
-            if(stringValid(formData.postcode)) {
-                setPostcodeValid(true)
-            } else {
-                setPostcodeValid(false)
-            }
-
-            if(emailValidation.test(formData.email)) {
-                setEmailValid(true)
-            } else {
-                setEmailValid(false)
-            }
             if(formData.phone) {
-                if(phoneValidation.test(formData.phone)) {
-                    setPhoneValid(true)
-                } else {
-                    setPhoneValid(false)
-
-                }
+                setPhoneValid(phoneValidation.test(formData.phone))                
             } else {
                 setPhoneValid(true)
             }
-
-            if(blankValid.test(formData.country as string)) {
-                setCountryValid(true)
-            } else {
-                setCountryValid(false)
-            }
-
-            if(formData.apartment) {
-                if(stringValid(formData.apartment)) {
-                    setApartmentValid(true)
-                } else {
-                    setApartmentValid(false)
-                }
+            
+            if(formData.apartment) {                
+                setApartmentValid(stringValid(formData.apartment))                
             } else {
                 setApartmentValid(true)
             }
-
             
 
-            setOrderInfoValid([ nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid, phoneValid, apartmentValid].every((bl) => bl == true))
+              
+            setOrderInfoValid([nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid, phoneValid, apartmentValid].every((bl) => bl == true))
        
     }, [formData])
 

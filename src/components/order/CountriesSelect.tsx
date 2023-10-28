@@ -26,8 +26,8 @@ const CountriesSelect = ({handleChange}: {handleChange: any}) => {
     }
     
 
-    return(<select onChange={handleChange} id="countries" name="country" className="p-2 w-[100%]">
-        <option selected={order.country.length == 0} disabled>Select country or region</option>
+    return(<select onChange={handleChange} id="countries" name="country" className={`p-2 w-[100%] ${order.country.length > 0 ? "" : " border-2 border-red-600"}`}>
+        <option  selected={order.country.length == 0} disabled>Select country or region</option>
             {data.sort((a, b) => a.name.common.localeCompare(b.name.common)).map((country) => {
                 return <option selected={country.name.common == order.country} className="max-w-[80vw]">{country.name.common}</option>
             }) }
