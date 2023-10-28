@@ -17,13 +17,11 @@ const OrderNotification = () => {
     const cart = useCart()
     const product = cart[cart.length-1]
     
-    if(path == "order") {
+    if(path == "order" || status == false) {
         return null
     }
 
-    if(status == false) {
-        return null;
-    } 
+    
     
 
     return(<div ref={notificationRef} className="slide-in bg-black text-accent fixed right-10 mr-10 top-[20%] rounded p-1 z-[20] flex items-center">

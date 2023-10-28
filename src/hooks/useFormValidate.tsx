@@ -1,12 +1,13 @@
 import { typeFormData } from "../types/types";
 
 import {useEffect, useState} from "react"
+import { useOrderInfoValid } from "./useOreder";
 
 
 const useFormValidate = (formData: typeFormData) => {
-
+    const {setOrderInfoValid} = useOrderInfoValid()
     const blankValid = new RegExp(/\S/);
-    const phoneValid = new RegExp(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/);
+    const phoneValidation = new RegExp(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/);
     const emailValidation = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     
     const [nameValid, setNameValid] = useState(false)
@@ -14,25 +15,32 @@ const useFormValidate = (formData: typeFormData) => {
     const [cityValid, setCityValid] = useState(false)
     const [countryValid, setCountryValid] = useState(false)
     const [postcodeValid, setPostcodeValid] = useState(false)
-    const [emailValid, setEmailValid] = useState(false)
-    const [overall, setOverall] = useState(false)
+    const [emailValid, setEmailValid] = useState(false)    
+    const [phoneValid,setPhoneValid] = useState(true)
+    const [apartmentValid,setApartmentValid] = useState(true)
 
+    const  stringValid = (item: string | string[]): boolean => {
+        if(Array.isArray(item)) {
+            return item.every((el) => blankValid.test(el)  && el.length > 2)
+        } else {
+            return (blankValid.test(item) &&   item.length > 2)
+        }
+    }
 
     useEffect(() => {                  
-            if(formData.name && formData.name.first && formData.name.last && blankValid.test(formData.name.first) && blankValid.test(formData.name.last) && formData.name.first.length > 2 &&
-            formData.name.last.length > 2) {
+            if(stringValid([formData.name.first, formData.name.last])) {
                 setNameValid(true)
             } else {
                 setNameValid(false)
             }
 
-            if(formData.street && blankValid.test(formData.street) && formData.street.length > 2) {
+            if(stringValid(formData.street)) {
                 setStreetValid(true)
             } else {
                 setStreetValid(false)
             }
 
-            if(formData.city && blankValid.test(formData.city) && formData.city.length > 2) {
+            if(stringValid(formData.city)) {
                 setCityValid(true)
             } else {
                 setCityValid(false)
@@ -44,22 +52,51 @@ const useFormValidate = (formData: typeFormData) => {
                 setCountryValid(false)
             }
 
-            if(formData.postcode && blankValid.test(formData.postcode) && formData.postcode.length > 2) {
+            if(stringValid(formData.postcode)) {
                 setPostcodeValid(true)
             } else {
                 setPostcodeValid(false)
             }
 
-            if(formData.email && emailValidation.test(formData.email)) {
+            if(emailValidation.test(formData.email)) {
                 setEmailValid(true)
             } else {
                 setEmailValid(false)
             }
-            setOverall([nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid].every((bl) => bl == true))
+            if(formData.phone) {
+                if(phoneValidation.test(formData.phone)) {
+                    setPhoneValid(true)
+                } else {
+                    setPhoneValid(false)
+
+                }
+            } else {
+                setPhoneValid(true)
+            }
+
+            if(blankValid.test(formData.country as string)) {
+                setCountryValid(true)
+            } else {
+                setCountryValid(false)
+            }
+
+            if(formData.apartment) {
+                if(stringValid(formData.apartment)) {
+                    setApartmentValid(true)
+                } else {
+                    setApartmentValid(false)
+                }
+            } else {
+                setApartmentValid(true)
+            }
+
+            
+
+            setOrderInfoValid([ nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid, phoneValid, apartmentValid].every((bl) => bl == true))
        
     }, [formData])
 
-    return {overall, nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid}
+    return {nameValid, streetValid, cityValid, postcodeValid, emailValid, countryValid, phoneValid, apartmentValid}
 }
 
 export default useFormValidate

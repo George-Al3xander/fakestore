@@ -42,7 +42,7 @@ export type typeFormData = {
     first: string,
     last: string,
   },
-  country: typeCountry | string,
+  country:  string,
   street: string,
   city: string,
   postcode: string,

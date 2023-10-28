@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom"
 import {BsHandbag, BsCashStack, BsFillBagCheckFill, BsCheckLg} from "react-icons/bs";
+import { useOrderInfoValid } from "../../hooks/useOreder";
 
 const Line = () => {
     return(<div className="flex items-center basis-[10%]">                
@@ -16,7 +17,7 @@ const OrderNav = () => {
     const divStyles = "flex items-center gap-2"
     const spanStyles = "bg-accent p-2 rounded-[50%] overflow-hidden"
     const svgStyles = "transition-all duration-400 fill-primary-700"
-
+    const {orderInfoValid} = useOrderInfoValid()
    
 
 

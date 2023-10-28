@@ -1,6 +1,7 @@
 
 import {useQuery} from "@tanstack/react-query"
 import { typeCountry } from "../../types/types"
+import { useOrder } from "../../hooks/useOreder"
 
 
 
@@ -11,6 +12,7 @@ const CountriesSelect = ({handleChange}: {handleChange: any}) => {
         const res: typeCountry[] = await data.json()       
         return res
     }
+    const {order} = useOrder()
 
 
     const {data, isLoading, isError} = useQuery({queryKey: ["products"], queryFn: getData})
@@ -22,11 +24,12 @@ const CountriesSelect = ({handleChange}: {handleChange: any}) => {
     if(isError) {
         return <h3>Error</h3>
     }
+    
 
-    return(<select onChange={handleChange} id="countries" name="countries" className="p-2 w-[100%]">
-        <option selected disabled>Select country or region</option>
+    return(<select onChange={handleChange} id="countries" name="country" className="p-2 w-[100%]">
+        <option selected={order.country.length == 0} disabled>Select country or region</option>
             {data.sort((a, b) => a.name.common.localeCompare(b.name.common)).map((country) => {
-                return <option className="max-w-[80vw]">{country.name.common}</option>
+                return <option selected={country.name.common == order.country} className="max-w-[80vw]">{country.name.common}</option>
             }) }
     </select>)
 }

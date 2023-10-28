@@ -1,14 +1,18 @@
 import { NavLink } from "react-router-dom"
 import { typeProduct } from "../../types/types"
+import { useCart } from "../../hooks/cart/useCart";
 
 
 
 
-const OrderMenu = ({cart} : {cart: typeProduct[]}) => {
-    const total = cart.reduce((prev: number, curr: typeProduct) => {  
-        console.log(Math.floor(50 + 50.99))          
+const OrderMenu = () => {
+    const cart = useCart()
+    const total = cart.reduce((prev: number, curr: typeProduct) => { 
         return prev + (curr.count! *  curr.price)
-    }, 50) 
+    }, 50);
+    
+
+
     return(<div className="border-[1px] w-[100%] md:basis-[40%] rounded-xl p-4 self-start">
         <ul className="w-[100%] flex flex-col gap-4 border-b-[1px] pb-4 mb-4">
             <li className="flex justify-between items-center gap-10"><h2 className="opacity-60">Subtotal: </h2> <h2 className="font-medium">${total}</h2></li>
