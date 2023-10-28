@@ -1,13 +1,14 @@
 import { useLocation } from "react-router-dom"
 import { useCart } from "../hooks/cart/useCart"
 import useNotification from "../hooks/useNotification"
-import { typeProduct } from "../types/types"
+
 
 import {useRef} from "react"
+import { useShowCart } from "../hooks/cart/useCartStatus"
 
 
 const OrderNotification = () => {
-   
+    const showCart = useShowCart()
     const location = useLocation()
     const path = location.pathname.split("/")[1]
     
@@ -31,7 +32,7 @@ const OrderNotification = () => {
        </div>
        <div className="p-2 flex gap-4">
             <span>Product added to cart</span>
-            <button onClick={() => {}} className="text-primary-500">Cart</button>
+            <button onClick={() => showCart()} className="text-primary-500">Cart</button>
        </div>
     </div>)
 }
