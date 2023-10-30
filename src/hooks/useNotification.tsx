@@ -1,44 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useCart } from './cart/useCart'
+import { typeProduct } from '../types/types';
 
 
 
 
-const useNotification = (ref: React.RefObject<HTMLDivElement>) => {
-    const [status, setStatus] = useState(false)
+const useNotification = () => {    
     const cart = useCart();
+    const [notifs, setNotifs] = useState<typeProduct[]>([])
+   
 
-    const hideNotificaion = () => {         
-        ref.current!.classList.add('slide-out-right');        
-        setTimeout(() => {            
-            setStatus(false)
-        },850)         
-    }
-
-    useEffect(() => {
-        // if(status == true) {    
-        //     setStatus(false)       
-        //    ref.current!.style.webkitAnimation = 'none';
-        //     setTimeout(function() {
-        //         ref.current!.style.webkitAnimation = '';
-        //     }, 10);
-        //     setStatus(true)
-        //     setTimeout(() => {
-        //         hideNotificaion()
-        //     },5000)    
-           
-        // } 
-        if(cart.length > 0)  {
-            setStatus(true)
-            setTimeout(() => {
-                hideNotificaion()
-            },5000)           
-        }
-        
+    useEffect(() => { 
+        if(cart.length > 0)  {            
+            const product = cart[cart.length-1];
+            setNotifs(prev => [...prev,  product])
+        }   
     }, [cart])
 
 
-    return status
+    return notifs
 }
 
 export default useNotification

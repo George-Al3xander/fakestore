@@ -20,6 +20,10 @@ const OrderPage = () => {
         }
     }, [])
 
+    useEffect(() => {
+        console.log(cart)
+    }, [cart])
+
     return(<div>
         <OrderProvider /*value={[order,setOrder]} */ >
             <OrderNav />

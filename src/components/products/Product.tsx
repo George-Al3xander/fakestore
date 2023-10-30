@@ -29,7 +29,7 @@ const Product = ({title, id,price, image,category, rating,description} : typePro
             <span className="flex items-center  justify-center font-bold gap-1"><BsFillStarFill style={{fill: "gold"}}/> {rating.rate} / 5</span>
             <h3 className="text-medium text-red-500">${price}</h3>
             {isInCart ? 
-            <button onClick={showCart}  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 px-5 flex items-center gap-1 py-3 mx-auto rounded-full  w-[min-content]"><BsCartCheckFill />Already in cart</button>
+            <button onClick={showCart}  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 px-5 flex items-center gap-1 py-3 mx-auto rounded-full  w-[min-content]"><BsCartCheckFill />In cart</button>
             :
             <button onClick={() => addToCart({title, id, price, image,category, rating,description}, 1)} className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3 mx-auto rounded-full  w-[min-content]">Add to Cart</button>
             }

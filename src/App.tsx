@@ -7,10 +7,11 @@ import ProductsPage from './components/products/ProductsPage'
 import SingleProductPage from './components/products/SingleProductPage'
 import MobileNav from './components/nav/MobileNav'
 import { CartProvider} from './hooks/cart/useCart'
-import OrderNotification from './components/OrderNotification'
+import OrderNotification from './components/cart/notifs/OrderNotification'
 import Cart from './components/cart/Cart'
 import OrderPage from './components/order/OrderPage'
 import { CartStatusProvider } from './hooks/cart/useCartStatus'
+import Notications from './components/cart/notifs/Notications'
 
 
 function App() { 
@@ -34,7 +35,8 @@ function App() {
     <div>
      <CartProvider >      
       <CartStatusProvider>      
-        <OrderNotification/>      
+        {/* <OrderNotification/>       */}
+        <Notications />
         {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
         <Cart  /> 
         <Header  showMenu={showMenu}/>
