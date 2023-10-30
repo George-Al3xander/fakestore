@@ -57,3 +57,4 @@ export type typeAction =
  | {type: "ADD", product: typeProduct, count: number } 
  |{type: "REMOVE",id: string } 
  |{type: "CHANGE",id: string, changeType: string} 
+ | {type: "RESET"}

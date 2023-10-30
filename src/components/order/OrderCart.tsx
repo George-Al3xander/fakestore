@@ -1,9 +1,5 @@
-import { useContext } from "react"
-import { CartContext } from "../../context/context"
-import CartItem from "../cart/CartItem"
 import { typeProduct } from "../../types/types"
 import OrderItem from "./OrderItem"
-import OrderMenu from "./OrderMenu"
 import { useCart } from "../../hooks/cart/useCart"
 
 
@@ -26,7 +22,7 @@ const OrderCart = () => {
                     {cart.map((prod: typeProduct) => {
                         return <OrderItem  product={prod}/>
                     })}
-                </ul>
+            </ul>
         </div>)
 }
 

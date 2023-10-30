@@ -1,25 +1,25 @@
-import { Navigate, Route, Routes } from "react-router-dom"
+import {Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import OrderCart from "./OrderCart"
 import OrderNav from "./OrderNav"
 import OrderMenu from "./OrderMenu"
 import OrderCheckout from "./OrderCheckout"
 import { OrderProvider, useOrder } from "../../hooks/useOreder"
-import {useState} from "react"
-import { typeFormData } from "../../types/types"
+import {useEffect} from "react"
+import OrderComplete from "./OrderComplete"
+import { useCart } from "../../hooks/cart/useCart"
 
-const OrderPage = () => {    
-    // const emptyOrder = {name: {
-    //     first: "",
-    //     last: "",
-    //   },
-    //   country: "",
-    //   street: "",
-    //   city: "",
-    //   postcode: "",
-    //   email: ""}
-    
-    //   const [order,setOrder] = useState<typeFormData>(emptyOrder)
-    
+const OrderPage = () => {        
+    const cart = useCart()
+    const navigate = useNavigate();   
+    const location = useLocation();
+    const path = location.pathname;
+    const step = path.split("/")[2];
+    useEffect(() => {
+        if(cart.length == 0 && step != "complete") {
+            navigate("/")           
+        }
+    }, [])
+
     return(<div>
         <OrderProvider /*value={[order,setOrder]} */ >
             <OrderNav />
@@ -27,7 +27,7 @@ const OrderPage = () => {
                 <Routes>
                     <Route element={<OrderCart />} path="/"/>
                     <Route element={<OrderCheckout />} path="/checkout"/>
-                    <Route element={<h1>Complete</h1>} path="/complete"/>
+                    <Route element={<OrderComplete />} path="/complete"/>
                 </Routes>
             <OrderMenu  />        
             </div>

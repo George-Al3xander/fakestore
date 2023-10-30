@@ -9,6 +9,7 @@ const CartContext = createContext<useCartManagerResult>({
     removeFromCart: () => {},
     incrementProduct: () => {}, 
     decrementProduct: () => {},
+    resetCart: () => {}
 });
 
 export const useCartManager = () => {
@@ -42,6 +43,8 @@ export const useCartManager = () => {
                 } else {
                   return state.map((prod) => action.id == prod.id ? {...prod, count: prod.count! - 1} : prod)
                 }
+              case "RESET":
+                return []
               default: throw new Error()
           }
         },[]);
@@ -62,9 +65,11 @@ export const useCartManager = () => {
             dispatch({type: "CHANGE", id, changeType: "DECREMENT"})
         },[])
 
-        
+        const resetCart = useCallback(() => {
+          dispatch({type: 'RESET'})
+        },[])
 
-    return {cart, addToCart, removeFromCart, incrementProduct, decrementProduct}
+    return {cart, addToCart, removeFromCart, incrementProduct, decrementProduct, resetCart}
 }
 
 
@@ -89,6 +94,12 @@ export const useRemoveFromCart = () => {
   const {removeFromCart} = useContext(CartContext)
 
   return removeFromCart
+}
+
+export const useResetCart = () => {
+  const {resetCart} = useContext(CartContext)
+
+  return resetCart
 }
 
 
