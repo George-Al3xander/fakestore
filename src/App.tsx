@@ -7,11 +7,12 @@ import ProductsPage from './components/products/ProductsPage'
 import SingleProductPage from './components/products/SingleProductPage'
 import MobileNav from './components/nav/MobileNav'
 import { CartProvider} from './hooks/cart/useCart'
-import OrderNotification from './components/cart/notifs/OrderNotification'
+import OrderNotification from './components/notifs/OrderNotification'
 import Cart from './components/cart/Cart'
 import OrderPage from './components/order/OrderPage'
 import { CartStatusProvider } from './hooks/cart/useCartStatus'
-import Notications from './components/cart/notifs/Notications'
+import Notications from './components/notifs/Notications'
+import HomePage from './components/home/HomePage'
 
 
 function App() { 
@@ -42,6 +43,7 @@ function App() {
         <Header  showMenu={showMenu}/>
         <Nav/>    
         <Routes>
+          <Route path='/' element={<HomePage />} />
           <Route path='/shop' element={<ProductsPage />}/>
           <Route path='/products/:productId' element={<SingleProductPage />}/>
           <Route path='/products/category/:id' element={<ProductsPage />}/>

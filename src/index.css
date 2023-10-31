@@ -262,7 +262,7 @@ header input {
 
 @-webkit-keyframes slide-out-right {
   0% {
-    right: 1rem; 
+      right: 0; 
       position: fixed;
     
   }
@@ -274,7 +274,7 @@ header input {
 
 @keyframes slide-out-right {
   0% {
-    right: 1rem; 
+    right: 0; 
     position: fixed;
     
   }
