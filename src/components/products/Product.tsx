@@ -13,7 +13,7 @@ const Product = ({title, id,price, image,category, rating,description} : typePro
     const cart = useCart();
     const isInCart = cart.some((prod) => prod.id == id)
     return(
-    <li className="grid grid-cols-1  gap-4 rounded overflow-hidden" key={"product-div-display" + id}>
+    <li className="grid grid-cols-1  gap-4 rounded overflow-hidden" key={"product-div-display-" + id}>
         <NavLink key={"1navlink-" + id}  to={`/products/${id}`}>                
             <div key={"img-div-" + id} className="w-[100%] h-[10rem]">
                 <img  className="max-w-[100%] max-h-[100%] mx-auto" src={image} key={`img-${title}`} alt={title} />

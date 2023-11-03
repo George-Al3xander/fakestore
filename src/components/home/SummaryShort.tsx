@@ -11,7 +11,7 @@ const SummaryShort = () => {
             </span>
             <div>
                 <h2 className="font-bold text-lg mb-2">Reliable Shipping</h2>
-                <p className="opacity-60 text-sm">Green Society provides Canada Post Xpress Shipping right to your doorstep! You can also opt in for shipping insurance. For orders over $149, shipping is free!</p>
+                <p className="opacity-60 text-sm">Fake Store provides Canada Post Xpress Shipping right to your doorstep! You can also opt in for shipping insurance. For orders over $149, shipping is free!</p>
             </div>
         </li>
         <li className="flex gap-2">
