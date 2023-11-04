@@ -2,11 +2,11 @@ import { useCart, useResetCart } from "../../hooks/cart/useCart"
 import { useOrder } from "../../hooks/useOreder";
 import { NavLink } from "react-router-dom";
 import OrderItem from "./OrderItem"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 
 const OrderComplete = () => {
     const cart = useCart();
-    const tempCart = cart
+    const [tempCart, _setTempCart] = useState(cart)
     const resetCart = useResetCart()
     const {order} = useOrder()
     const total = tempCart.reduce((prev, curr) => { 
@@ -62,7 +62,7 @@ const OrderComplete = () => {
                 
                 <li className="flex justify-between items-center border-b-2 my-4 pb-4">
                      <h2 className="uppercase">Total</h2>           
-                    <span className="text-red-600 font-medium text-xl">${total + discount + shipping}</span>         
+                    <span className="text-red-600 font-medium text-xl">${(total + discount + shipping).toFixed(2)}</span>         
                 </li>
             </ul>
         </div>
