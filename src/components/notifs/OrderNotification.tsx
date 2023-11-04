@@ -1,40 +1,14 @@
-import { useLocation } from "react-router-dom"
-import { useCart } from "../../hooks/cart/useCart"
-import useNotification from "../../hooks/useNotification"
-import {useRef} from "react"
-import { useShowCart } from "../../hooks/cart/useCartStatus"
-import {useState, useEffect} from "react"
+import {useShowCart } from "../../hooks/cart/useCartStatus"
 import { typeProduct } from "../../types/types"
 
 const OrderNotification = ({product}: {product: typeProduct}) => {
-    const showCart = useShowCart()
-    const location = useLocation()
-    const path = location.pathname.split("/")[1]    
-    const notificationRef = useRef<HTMLDivElement>(null)    
-    const [status, setStatus] = useState(true)
-    
-    const hideNotificaion = () => {         
-        notificationRef.current!.classList.add('slide-out-right');        
-        setTimeout(() => {            
-            setStatus(false)
-        },850)         
-    }
-    
-    useEffect(() => {        
-        setTimeout(() => {
-            hideNotificaion()
-        },5000) 
-    },[])
-    
-    if(status == false || path == "order" ||  product == undefined) {
-        return null
-    }  
+    const showCart = useShowCart()     
 
-    return(<div ref={notificationRef} key={`notif-${product.id}`} className="slide-in bg-black text-accent fixed  top-[20vh] rounded p-1 z-[20] flex items-center">
-       <div className="w-[3rem] h-[3rem] overflow-hidden">
+    return(<div key={`notif-${product.id}`} className=" text-accent  rounded flex gap-4 font-medium items-center">
+       <div className="w-[4rem] h-[3rem] overflow-hidden">
             <img className="w-[100%] h-[100%] object-cover" src={product.image} alt="Notificaion" />
        </div>
-       <div className="p-2 flex gap-4">
+       <div className="flex gap-4 justify-between w-[100%]">
             <span>Product added to cart</span>
             <button onClick={() => showCart()} className="text-primary-500">Cart</button>
        </div>

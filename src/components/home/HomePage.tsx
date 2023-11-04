@@ -7,6 +7,7 @@ import { typeProduct } from "../../types/types"
 
 import Spinner from "../Spinner"
 import HowToOrder from "./HowToOrder"
+import Pros from "./Pros"
 
 
 const HomePage = () => {
@@ -40,10 +41,11 @@ const HomePage = () => {
             <NavLink to={"/shop"} className="whitespace-nowrap text-accent bg-primary-500 px-7 py-4  rounded-full  w-[min-content]">Shop All</NavLink>            
         </div>
         <SummaryShort />
-        <h1 className="text-3xl font-bold text-center my-10">BEST FAKE STORE TO BUY FAKE PRODUCTS ONLINE </h1>
+        <h1 className="text-3xl font-bold text-center my-10 mt-[10rem]">BEST FAKE STORE TO BUY FAKE PRODUCTS ONLINE </h1>
         <BestSellers products={products}/>
         <ChooseYourProducts products={products}/>
         <HowToOrder />
+        <Pros />
     </div>)
 }
 

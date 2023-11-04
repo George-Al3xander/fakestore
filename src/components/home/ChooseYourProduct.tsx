@@ -30,19 +30,19 @@ const ChooseYourProducts = ({products}: {products:typeProduct[]}) => {
         return <div>Error</div>
     }
     
-    return(<div className="w-responsive mx-auto my-10 flex flex-col gap-4">
+    return(<div className="w-responsive mx-auto my-[10rem] flex flex-col gap-4">
             <h1 className="text-3xl font-bold  uppercase">Choose your product </h1>
             <div className="flex flex-wrap gap-4 ">
                 <h3 className="text-lg">Filter By Category</h3>
-                <ul className="flex gap-2 overflow-x-scroll  max-w-[100%]">
+                <ul className="flex gap-2 overflow-x-auto  max-w-[100%]">
                     {categories.map((cat) => {
-                        return <li key={"choose-category-" + cat} onClick={() => setCurrentCategory(cat)} className={`bg-white capitalize whitespace-nowrap text-sm p-2 border-[1px] transition-all duration-200 ${cat == currentCatgory ? "text-primary-700  border-primary-700 rounded-2xl" : ""}`}><button className="capitalize" >{cat}</button></li>
+                        return <li key={"choose-category-" + cat} onClick={() => setCurrentCategory(cat)} className={`bg-white capitalize whitespace-nowrap text-sm p-2  transition-all duration-200 ${cat == currentCatgory ? "text-primary-700 border-[1px] border-primary-700 rounded-2xl" : ""}`}><button className="capitalize" >{cat}</button></li>
                     })}
-                    <li onClick={() => setCurrentCategory("shop")} className={`capitalize whitespace-nowrap text-sm p-2 border-[1px] transition-all duration-200 ${currentCatgory == "shop" ? "text-primary-700  border-primary-700 rounded-2xl" : ""}`}><button className="capitalize" >Shop all products</button></li> 
+                    <li onClick={() => setCurrentCategory("shop")} className={`capitalize whitespace-nowrap text-sm p-2  transition-all duration-200 ${currentCatgory == "shop" ? "text-primary-700 border-[1px]  border-primary-700 rounded-2xl" : ""}`}><button className="capitalize" >Shop all products</button></li> 
                 </ul>                
             </div>
            <Products products={products.filter((prod) => currentCatgory == 'shop' ? true :  prod.category == currentCatgory).slice(0, 3)}/>                
-            <NavLink className="text-primary-700 underline mx-auto" to={currentCatgory == "shop" ? "/shop" : `/products/category/${currentCatgory}`}>View all {currentCatgory == "shop" ? "products": currentCatgory}</NavLink>
+            <NavLink className="text-primary-700 underline mx-auto mt-10" to={currentCatgory == "shop" ? "/shop" : `/products/category/${currentCatgory}`}>View all {currentCatgory == "shop" ? "products": currentCatgory}</NavLink>
         </div>)
 }
 

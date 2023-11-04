@@ -5,6 +5,7 @@ import SearchBar from "./search/SearchBar";
 import { typeProduct } from "../types/types";
 import { useCart} from "../hooks/cart/useCart";
 import { useShowCart } from "../hooks/cart/useCartStatus";
+import { NavLink } from "react-router-dom";
 
 
 const Header = ({showMenu} : {showMenu: any}) => {
@@ -19,7 +20,9 @@ const Header = ({showMenu} : {showMenu: any}) => {
         <div className="flex justify-between py-4 px-[3%]  border-b-2">
             <div className="flex items-center gap-4 ">
                 <button onClick={showMenu} className="md:hidden"><AiOutlineMenu size={30}/></button>
-                <h1 className="uppercase text-primary-500 text-lg font-bold">Fake store</h1>
+                <NavLink to={"/"}>
+                    <h1 className="uppercase text-primary-500 text-lg font-bold">Fake store</h1>
+                </NavLink>
             </div>
 
             <SearchBar type="desktop"/>            

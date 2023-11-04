@@ -5,7 +5,6 @@ import { typeProduct, typeFilters } from '../../types/types';
 
 
 
-
 const PriceFilter = ({products,  filters, setFilters}: {products: typeProduct[],  filters: typeFilters,setFilters: any}) => {
     const [priceFilter, setPriceFilter] = useState({min: filters.price.min,max: filters.price.max});
     const changePriceFilter = () => {
@@ -43,8 +42,8 @@ const PriceFilter = ({products,  filters, setFilters}: {products: typeProduct[],
     
     <div>
         <div className='flex justify-between items-center mb-2 text-sm'>
-            <span className='bg-gray-300 p-1 rounded-lg'>$<input className='bg-gray-300 text-center' type="number" min={0} max={Math.floor(topPrice) + 1} name="min" value={priceFilter.min} onChange={handleNumberChange} defaultValue={priceFilter.min}/></span>
-            <span className='bg-gray-300 p-1 rounded-lg'>$<input className='bg-gray-300 text-center' type="number" min={0} max={Math.floor(topPrice) + 1} name="max" value={priceFilter.max}  onChange={handleNumberChange} defaultValue={priceFilter.max}/></span>
+            <span className='bg-gray-300 p-1 rounded-lg flex'>$<input className='bg-gray-300 text-center' type="number" min={0} max={Math.floor(topPrice) + 1} name="min" value={priceFilter.min} onChange={handleNumberChange} defaultValue={priceFilter.min}/></span>
+            <span className='bg-gray-300 p-1 rounded-lg flex'>$<input className='bg-gray-300 text-center' type="number" min={0} max={Math.floor(topPrice) + 1} name="max" value={priceFilter.max}  onChange={handleNumberChange} defaultValue={priceFilter.max}/></span>
         </div>
         <Slider style={{}} range defaultValue={[priceFilter.min, priceFilter.max]} value={[priceFilter.min, priceFilter.max]}  min={0} onChange={onChange} max={Math.floor(topPrice) + 1}/>
     </div>

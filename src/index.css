@@ -9,7 +9,7 @@ header input {
 :root {
     --clr-primary-500: #17AF26;
     --clr-primary-700: #05422C;
-
+    --toastify-toast-width: 400px;
 }
 
 

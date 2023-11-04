@@ -18,7 +18,7 @@ const useSearch = (searchKey: string) => {
         return res
     }
     
-    const {data, refetch, isRefetching,  isError} = useQuery({
+    const {data, refetch, isRefetching} = useQuery({
         queryKey: ["results", searchKey],
         queryFn: fetchSearchResults,
         refetchOnWindowFocus: false,

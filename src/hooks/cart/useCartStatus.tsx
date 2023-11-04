@@ -1,4 +1,4 @@
-import { createContext, useCallback,useState,useEffect, useContext, useReducer} from 'react'
+import { createContext, useState, useContext} from 'react'
 
 
 type useCartStatusManagerResult = ReturnType<typeof useCartStatusManager>
@@ -10,22 +10,22 @@ const CartStatusContext = createContext<useCartStatusManagerResult>({
 })
 
 
-type typeAction = 
-    | {type: "SHOW"}
-    | {type: "HIDE"}
+// type typeAction = 
+//     | {type: "SHOW"}
+//     | {type: "HIDE"}
 
 
 
-const StatusReducer = (state: boolean, action: typeAction) => {
-    const {type} = action
-    switch(type) {
-        case "SHOW":
-            return true
-        case "HIDE":
-            return false
-        default: return state
-    }
-}
+// const StatusReducer = (state: boolean, action: typeAction) => {
+//     const {type} = action
+//     switch(type) {
+//         case "SHOW":
+//             return true
+//         case "HIDE":
+//             return false
+//         default: return state
+//     }
+// }
 
 
 

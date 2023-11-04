@@ -4,6 +4,7 @@ import useSortProducts from "../../hooks/useSortProducts"
 import { typeProduct } from "../../types/types"
 import {AiOutlineDown} from "react-icons/ai"
 import { useLocation } from "react-router-dom"
+import {LuSearchX} from "react-icons/lu"
 
 
 const ProductsMainDisplay = ({products, showFilterMenu} : {products: typeProduct[], showFilterMenu: any}) => {
@@ -25,7 +26,10 @@ const ProductsMainDisplay = ({products, showFilterMenu} : {products: typeProduct
                 </select>
             </div>
         </div>
-        {products.length > 0 ? <Products products={sorted}/> : <h1>No matching :(</h1>}
+        {products.length > 0 ? <Products products={sorted}/> : <div className="w-[100%] justify-center  flex  items-center  gap-4">
+                <LuSearchX  size={70}/>
+                <h3 className="text-lg font-bold">No matching :(</h3>
+            </div>}
 
     </div>)
 }

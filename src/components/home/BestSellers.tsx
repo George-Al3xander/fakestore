@@ -10,7 +10,7 @@ const BestSellers = ({products}: {products:typeProduct[]}) => {
 
    
 
-    return(<div className="w-responsive mx-auto flex flex-col md:flex-row justify-center gap-4 my-10">
+    return(<div className="w-responsive mx-auto flex flex-col md:flex-row justify-center gap-4 my-10 mb-[10rem]">
         <div className="bg-primary-700 text-white p-[3%] grid grid-cols-1  gap-4 rounded-xl text-center md:min-w-[10rem] md:max-w-[25%]">
                 <TbShoppingCartUp className="mx-auto" size={100}/>
                 <h3 className="text-lg">Shop our Best Sellers</h3>

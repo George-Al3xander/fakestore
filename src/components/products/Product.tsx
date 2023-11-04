@@ -2,7 +2,10 @@ import { typeProduct } from "../../types/types"
 import {BsFillStarFill, BsCartCheckFill} from "react-icons/bs"
 import { NavLink } from "react-router-dom"
 import { useAddToCart, useCart} from "../../hooks/cart/useCart"
+import { toast } from 'react-toastify';
 import { useShowCart } from "../../hooks/cart/useCartStatus"
+import OrderNotification from "../notifs/OrderNotification";
+
 
 
 const Product = ({title, id,price, image,category, rating,description} : typeProduct) => {
@@ -10,6 +13,16 @@ const Product = ({title, id,price, image,category, rating,description} : typePro
     const showCart = useShowCart()
     
     const addToCart = useAddToCart();
+
+
+    const addedToCart = ({title, id, price, image,category, rating,description} : typeProduct) => {
+        addToCart({title, id, price, image,category, rating,description}, 1)
+        const notify = () => {            
+            toast.success(<OrderNotification product={{title, id, price, image,category, rating,description}} />,{theme: "dark"});
+        }
+        notify()
+    }
+    
     const cart = useCart();
     const isInCart = cart.some((prod) => prod.id == id)
     return(
@@ -31,7 +44,7 @@ const Product = ({title, id,price, image,category, rating,description} : typePro
             {isInCart ? 
             <button onClick={showCart}  className="whitespace-nowrap bg-accent border-primary-500 border-[1px] text-primary-500 px-5 flex items-center gap-1 py-3 mx-auto rounded-full  w-[min-content]"><BsCartCheckFill />In cart</button>
             :
-            <button onClick={() => addToCart({title, id, price, image,category, rating,description}, 1)} className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3 mx-auto rounded-full  w-[min-content]">Add to Cart</button>
+            <button onClick={() => addedToCart({title, id, price, image,category, rating,description})} className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3 mx-auto rounded-full  w-[min-content]">Add to Cart</button>
             }
         </div>
     </li>)

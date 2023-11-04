@@ -1,12 +1,11 @@
 import { typeProduct } from "../../types/types"
 import {AiOutlineClose} from "react-icons/ai"
-import {BsHandbag} from "react-icons/bs";
 import CartItem from "./CartItem";
 import {useRef} from "react"
 import { NavLink } from "react-router-dom";
 import { useCart} from "../../hooks/cart/useCart";
 import { useCartStatus, useHideCart } from "../../hooks/cart/useCartStatus";
-
+import {TbShoppingCartSearch} from "react-icons/tb"
 
 const Cart = () => {
     const cart = useCart();
@@ -37,8 +36,9 @@ const Cart = () => {
                 <h2 className="text-lg font-medium">Your cart</h2>
                 <button onClick={hideCart}><AiOutlineClose size={20}/></button>
             </div>
-            <div>
-              <p>Your cart is empty</p>
+            <div className="w-[100%]  h-[100%] flex justify-center items-center flex-col gap-4">
+                <TbShoppingCartSearch className={"fill-primary-700"} size={70}/>
+                <h3 className="text-lg font-bold">Your cart is currently empty :(</h3>
             </div>
         </div>
     </div>)
@@ -47,7 +47,7 @@ const Cart = () => {
 
 
     return(<div onClick={() => hideCart()}  className='bg-ts fixed w-[100%]  h-[100vh] z-[150]'>
-        <div onClick={(e) => e.stopPropagation()} ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed  w-[100%] md:w-[50%]">
+        <div onClick={(e) => e.stopPropagation()} ref={cartRef} className="slide-in right-0  bg-accent h-[100%] fixed  w-[100%] md:max-w-[30rem] md:w-[50%]">
             <div className="flex justify-between items-center border-b-2 p-4">
                 <h2 className="text-lg font-medium">Your cart</h2>
                 <button onClick={hideCart}><AiOutlineClose size={20}/></button>

@@ -4,7 +4,7 @@ import {AiFillDollarCircle} from "react-icons/ai"
 
 const SummaryShort = () => {
 
-    return(<ul className="bg-green-50 flex flex-col md:flex-row gap-10 p-4">
+    return(<ul className="bg-green-50 flex flex-col md:flex-row gap-10 p-4  py-10">
         <li className="flex gap-2">
             <span className="p-4 bg-white self-start rounded-[50%]">
                 <FaShippingFast className="fill-primary-700 "  size={40}/>

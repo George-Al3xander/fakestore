@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import { typeProduct } from "../types/types";
+
 
 
 

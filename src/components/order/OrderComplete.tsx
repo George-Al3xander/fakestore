@@ -2,18 +2,18 @@ import { useCart, useResetCart } from "../../hooks/cart/useCart"
 import { useOrder } from "../../hooks/useOreder";
 import { NavLink } from "react-router-dom";
 import OrderItem from "./OrderItem"
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 
 const OrderComplete = () => {
     const cart = useCart();
-    const [tempCart, setTempCart] = useState(cart)
+    const tempCart = cart
     const resetCart = useResetCart()
     const {order} = useOrder()
     const total = tempCart.reduce((prev, curr) => { 
         return prev + (curr.count! *  curr.price)
     }, 0);
 
-    const shipping = 50
+    const shipping = total > 149 ? 0 : 50
     const discount = 0
     useEffect(() => {
         resetCart();

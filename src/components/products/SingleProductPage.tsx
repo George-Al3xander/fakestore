@@ -8,6 +8,8 @@ import { typeProduct } from "../../types/types"
 import SameCategoryProducts from "./SameCategoryProducts"
 import { useAddToCart, useCart } from "../../hooks/cart/useCart"
 import { useShowCart } from "../../hooks/cart/useCartStatus"
+import OrderNotification from "../notifs/OrderNotification";
+import { toast } from 'react-toastify';
 
 
 const SingleProductPage = () => {
@@ -24,11 +26,18 @@ const SingleProductPage = () => {
     
 
     const {data: product, isLoading, isError} = useQuery({queryKey: ["product",productId],queryFn: getData})
-    const [count, setCount] = useState(1);
-    const addToCart = useAddToCart()
+    const [count, setCount] = useState(1);    
     const cart = useCart()
     const isInCart = cart.some((prod) => prod.id == productId)
-    
+    const addToCart = useAddToCart();
+
+    const addedToCart = ({title, id, price, image,category, rating,description} : typeProduct, count: number) => {
+        addToCart({title, id, price, image,category, rating,description}, count)
+        const notify = () => {            
+            toast.success(<OrderNotification product={{title, id, price, image,category, rating,description}} />,{theme: "dark"});
+        }
+        notify()
+    }
 
     if (isLoading) {        
         return <Spinner  height="85vh"/>
@@ -70,7 +79,7 @@ const SingleProductPage = () => {
                     :
                     <>
                         <div className="flex items-center gap-2"><button className="disabled:opacity-30 disabled:cursor-not-allowed" disabled={count -2 < 0} onClick={substractCount}><AiOutlineMinus /></button> <span className="bg-gray-300 rounded text-lg w-[30px] h-[30px] text-center items-center">{count}</span> <button className="disabled:opacity-30 disabled:cursor-not-allowed" disabled={rating.count < count} onClick={addCount}><AiOutlinePlus /></button></div>
-                        <button onClick={() =>addToCart(product, count)}  className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3  rounded-full  w-[min-content]">Add to Cart | ${count * price}</button>
+                        <button onClick={() =>addedToCart(product, count)}  className="whitespace-nowrap text-accent bg-primary-500 px-5 py-3  rounded-full  w-[min-content]">Add to Cart | ${count * price}</button>
                     </>
                     } 
                 </div>

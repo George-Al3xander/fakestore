@@ -1,12 +1,10 @@
 import CountriesSelect from "./CountriesSelect"
 import useFormValidate from "../../hooks/useFormValidate"
-import { useOrder, useOrderInfoValid } from "../../hooks/useOreder"
+import { useOrder} from "../../hooks/useOreder"
 
 
 
 const OrderCheckout = () => {
-    
-    const {orderInfoValid} = useOrderInfoValid()
     const {order,setOrder} = useOrder()
     const {nameValid, streetValid, cityValid, postcodeValid, emailValid, phoneValid, apartmentValid} = useFormValidate(order);
     
@@ -30,10 +28,7 @@ const OrderCheckout = () => {
             }
       
     }
-       
-    // useEffect(() => {
-    //    console.log(nameValid)
-    // },[order])
+  
     
     return(<form className="basis-[60%] flex flex-col gap-6">
         <div className="flex justify-between items-center border-b-2 mb-10 pb-4">

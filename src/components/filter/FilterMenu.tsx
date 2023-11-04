@@ -2,9 +2,8 @@ import { typeFilters, typeProduct } from "../../types/types"
 import {BsFillStarFill, BsStar} from "react-icons/bs"
 import 'rc-slider/assets/index.css';
 import PriceFilter from "./PriceFilter";
-import {useRef, useEffect} from "react"
+import {useRef} from "react"
 import {AiOutlineClose} from "react-icons/ai"
-import { useLocation } from "react-router-dom";
 const FilterMenu = ({products, filters, setFilters, mobile, closeFilterMenu}: {products: typeProduct[], filters: typeFilters,setFilters: any, mobile?: boolean, closeFilterMenu?: any}) => {
     
    

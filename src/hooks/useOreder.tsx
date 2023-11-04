@@ -1,8 +1,8 @@
 import { createContext,useState, useContext} from 'react'
 import { typeFormData } from '../types/types'
 
-type initialOrderStateType = [order: typeFormData, setOrder: React.Dispatch<React.SetStateAction<typeFormData>>
-]
+// type initialOrderStateType = [order: typeFormData, setOrder: React.Dispatch<React.SetStateAction<typeFormData>>
+// ]
 
 type useOrderMangerResult = ReturnType<typeof useOrderManager>
 

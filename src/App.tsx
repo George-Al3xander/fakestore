@@ -7,12 +7,15 @@ import ProductsPage from './components/products/ProductsPage'
 import SingleProductPage from './components/products/SingleProductPage'
 import MobileNav from './components/nav/MobileNav'
 import { CartProvider} from './hooks/cart/useCart'
-import OrderNotification from './components/notifs/OrderNotification'
 import Cart from './components/cart/Cart'
 import OrderPage from './components/order/OrderPage'
 import { CartStatusProvider } from './hooks/cart/useCartStatus'
-import Notications from './components/notifs/Notications'
 import HomePage from './components/home/HomePage'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 
 function App() { 
@@ -26,22 +29,19 @@ function App() {
     setMobileMenu(false)
   }
 
+     
+ 
   
-
-   
-  
-   
   
   return (
     <div>
      <CartProvider >      
-      <CartStatusProvider>      
-        {/* <OrderNotification/>       */}
-        <Notications />
+      <CartStatusProvider>         
+        <ToastContainer />
         {mobileMenu ? <MobileNav closeMenu={closeMenu} /> : null}
         <Cart  /> 
         <Header  showMenu={showMenu}/>
-        <Nav/>    
+        <Nav/>  
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/shop' element={<ProductsPage />}/>
